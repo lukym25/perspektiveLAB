@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -10,7 +9,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Awake()
     {
-        followedObject = InstancesManager.Instance.Player;
+        followedObject = InstancesManager.Instance.player;
     }
 
     // Update is called once per frame

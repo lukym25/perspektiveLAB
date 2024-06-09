@@ -16,35 +16,40 @@ public class EnemySpawner : MonoBehaviour
 
     private Timer waitingToSpawnTimer;
 
-    private void Start()
+    private void Awake()
     {
         waitingToSpawnTimer = new Timer(warmUpTime);
-        waitingToSpawnTimer.OnCompletionEvent += StartSpawningWave;
+        waitingToSpawnTimer.OnCompletionEvent += StartSpawning;
     }
 
     private void Update()
     {
-        Debug.Log(waitingToSpawnTimer.RemainingTime);
         if (waitingToSpawnTimer != null)
         {
             waitingToSpawnTimer.CountDown();
         }
     }
 
-    private void StartSpawningWave()
+    private void StartSpawning()
     {
-        waitingToSpawnTimer.OnCompletionEvent -= StartSpawningWave;
+        waitingToSpawnTimer.OnCompletionEvent -= StartSpawning;
         
         currentSpawn = 0;
         currentEnemy = 0;
         waitingToSpawnTimer.OnCompletionEvent += SpawnEnemy;
+
+        if (enemyWaves.Length == 0)
+        {
+            EndSpawning();
+            return;
+        }
         
         SpawnEnemy();
     }
 
     private void SpawnEnemy()
     {
-        var thisWave = enemyWaves[currentWave].Wave;
+        var thisWave = enemyWaves[currentWave].wave;
         
         //If it is something to spawn, spawn it
         if (thisWave[currentSpawn].EnemyObject != null) 
@@ -53,10 +58,27 @@ public class EnemySpawner : MonoBehaviour
         }
         
         //Add time after spawning
-        currentEnemy++;
         waitingToSpawnTimer.RemainingTime = thisWave[currentSpawn].IntervalTime;
         
-        //check if it is last Enemy/Spawn
+        //check if it is last Enemy/Spawn and go to next Enemy/Spawn
+        GoToNextEnemy(thisWave);
+    }
+    
+    private void InstantiateEnemyObject()
+    {
+        var enemyObject = enemyWaves[currentWave].wave[currentSpawn].EnemyObject;
+        var positionX = Random.Range(spawnPoint1.x, spawnPoint2.x);
+        var positionZ = Random.Range(spawnPoint1.y, spawnPoint2.y);
+        Vector3 spawnPosition = new Vector3(positionX, 9, positionZ);
+        
+        var newEnemy = Instantiate(enemyObject, spawnPosition, enemyObject.transform.rotation);
+        
+        InstancesManager.Instance.enemies.Add(newEnemy.transform);
+    }
+
+    private void GoToNextEnemy(EnemySpawn[] thisWave)
+    {
+        currentEnemy++;
         if (currentEnemy >= thisWave[currentSpawn].NumberOfEnemies)
         {
             currentEnemy = 0;
@@ -69,11 +91,7 @@ public class EnemySpawner : MonoBehaviour
 
                 if (currentWave >= enemyWaves.Length)
                 {
-                    //stopped spawning, last wave spawned
-                    Debug.Log("AllSpawned");
-                    waitingToSpawnTimer.OnCompletionEvent -= SpawnEnemy;
-                    waitingToSpawnTimer.RemainingTime = 0;
-
+                    EndSpawning();
                     return;
                 }
                 
@@ -82,13 +100,11 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void InstantiateEnemyObject()
+    private void EndSpawning()
     {
-        var enemyObject = enemyWaves[currentWave].Wave[currentSpawn].EnemyObject;
-        var positionX = Random.Range(spawnPoint1.x, spawnPoint2.x);
-        var positionZ = Random.Range(spawnPoint1.y, spawnPoint2.y);
-        Vector3 spawnPosition = new Vector3(positionX, 9, positionZ);
-        
-        Instantiate(enemyObject, spawnPosition, enemyObject.transform.rotation);
+        Debug.Log("AllSpawned");
+        waitingToSpawnTimer.OnCompletionEvent -= SpawnEnemy;
+        waitingToSpawnTimer = null;
     }
+    
 }

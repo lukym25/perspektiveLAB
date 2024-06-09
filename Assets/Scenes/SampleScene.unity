@@ -7230,6 +7230,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5028048280317561121, guid: b9b41dcd2bc031840a27cd05920d8c2e,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 330585545}
+    - target: {fileID: 5028048280317561121, guid: b9b41dcd2bc031840a27cd05920d8c2e,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 330585545}
+    - target: {fileID: 5028048280317561121, guid: b9b41dcd2bc031840a27cd05920d8c2e,
+        type: 3}
+      propertyPath: AttackingOnObject
+      value: 
+      objectReference: {fileID: 1565990408}
     - target: {fileID: 6073269372699777145, guid: b9b41dcd2bc031840a27cd05920d8c2e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7284,6 +7299,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078642129161325137, guid: b9b41dcd2bc031840a27cd05920d8c2e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8625,8 +8645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56b937eddd8c2ad49bb226648f61d518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1378435920}
-  Enemies: []
+  player: {fileID: 1378435920}
+  enemies: []
 --- !u!114 &2068082617
 MonoBehaviour:
   m_ObjectHideFlags: 0

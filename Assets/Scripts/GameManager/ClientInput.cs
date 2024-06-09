@@ -18,7 +18,17 @@ public class ClientInput : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            inputEvents.SpaceEventInitiate();
+            inputEvents.SpacePressedEventInvoke();
+        }
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            inputEvents.MousePrimaryPressedEventInvoke();
+        }
+        
+        if (Input.GetMouseButtonUp(0))
+        {
+            inputEvents.MousePrimaryReleasedEventInvoke();
         }
     }
 }

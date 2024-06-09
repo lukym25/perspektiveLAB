@@ -50,11 +50,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        inputEvents.SpacePressedEvent += PlayerJump;
+        inputEvents.SpacePressed += PlayerJump;
     }
 
     private void OnDisable()
     {
-        inputEvents.SpacePressedEvent -= PlayerJump;
+        inputEvents.SpacePressed -= PlayerJump;
     }
 }

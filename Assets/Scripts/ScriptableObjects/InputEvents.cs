@@ -6,10 +6,22 @@ public class InputEvents : ScriptableObject
 {
     public float horizontalInput;
     public float verticalInput;
-    public event Action SpacePressedEvent;
+    public event Action SpacePressed;
+    public event Action MousePrimaryPressed;
+    public event Action MousePrimaryReleased;
 
-    public void SpaceEventInitiate()
+    public void SpacePressedEventInvoke()
     {
-        SpacePressedEvent?.Invoke();
+        SpacePressed?.Invoke();
+    }
+
+    public void MousePrimaryPressedEventInvoke()
+    {
+        MousePrimaryPressed?.Invoke();
+    }
+
+    public void MousePrimaryReleasedEventInvoke()
+    {
+        MousePrimaryReleased?.Invoke();
     }
 }
