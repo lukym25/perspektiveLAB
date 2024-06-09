@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public Transform followedObject;
     public Vector3 offset;
+    [SerializeField]
+    private Transform followedObject;
     [SerializeField]
     private Transform cameraObject;
 
@@ -12,18 +13,16 @@ public class CameraMovement : MonoBehaviour
         offset = cameraObject.transform.position;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    // Update is called once per frame
+    private void Update()
     {
-        if(followedObject == null)
-        {
-            followedObject = transform;
-        }
+        if(followedObject == null) {return;}
+        
+        cameraObject.position = followedObject.transform.position + new Vector3(offset.x, offset.y, offset.z);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeFolowedObject(Transform newFollowedObject)
     {
-        cameraObject.position = followedObject.transform.position + new Vector3(offset.x, offset.y, offset.z);
+        followedObject = newFollowedObject;
     }
 }

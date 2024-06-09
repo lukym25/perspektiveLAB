@@ -15,12 +15,6 @@ public class EnemySpawner : MonoBehaviour
 
     private Timer waitingToSpawnTimer;
 
-    private void Awake()
-    {
-        waitingToSpawnTimer = new Timer(warmUpTime);
-        waitingToSpawnTimer.OnCompletionEvent += StartSpawning;
-    }
-
     private void Update()
     {
         if (waitingToSpawnTimer != null)
@@ -28,10 +22,16 @@ public class EnemySpawner : MonoBehaviour
             waitingToSpawnTimer.CountDown();
         }
     }
-
-    private void StartSpawning()
+    
+    public void StartSpawning()
     {
-        waitingToSpawnTimer.OnCompletionEvent -= StartSpawning;
+        waitingToSpawnTimer = new Timer(warmUpTime);
+        waitingToSpawnTimer.OnCompletionEvent += EndWarmUp;
+    }
+
+    private void EndWarmUp()
+    {
+        waitingToSpawnTimer.OnCompletionEvent -= EndWarmUp;
         
         currentSpawn = 0;
         currentEnemy = 0;
@@ -99,11 +99,12 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void EndSpawning()
+    public void EndSpawning()
     {
-        Debug.Log("AllSpawned");
+        if(waitingToSpawnTimer == null) {return;}
+        
+        currentWave = 0;
         waitingToSpawnTimer.OnCompletionEvent -= SpawnEnemy;
         waitingToSpawnTimer = null;
     }
-    
 }

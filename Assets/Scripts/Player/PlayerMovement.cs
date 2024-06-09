@@ -4,6 +4,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     private InputEvents inputEvents;
+    [SerializeField] 
+    private GameInfo gameInfo;
     [SerializeField]
     private Rigidbody rigidbodyComponent;
     
@@ -12,12 +14,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] 
     private LayerMask groundLayer;
     
-    
     public float movementSpeed;
     public float jumpForce;
     
     private void FixedUpdate()
     {
+        if(gameInfo.gameState != GameStateEnum.InGame) {return;}
+        
         MovePlayer();
     }
 

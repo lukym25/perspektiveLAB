@@ -5,7 +5,7 @@ public class PlayerAttack : Attack
     [SerializeField]
     private InputEvents inputEvents;
     [SerializeField] 
-    private Camera mainCamera;
+    private GameInfo gameInfo;
     
     public float autoAimRange;
     [SerializeField]
@@ -15,6 +15,8 @@ public class PlayerAttack : Attack
 
     private void FixedUpdate()
     {
+        if(gameInfo.gameState != GameStateEnum.InGame) {return;}
+        
         if (autoAim)
         {
             AutoAttack();
@@ -65,22 +67,11 @@ public class PlayerAttack : Attack
     
     private void ManualAttack()
     {
-        var mousePosition = MousePositionInWorld();
+        var mousePosition = MouseTracker.Instance.GetMousePosition();
         
         if(mousePosition == null) {return;}
         
         ShootOnTargetPosition(mousePosition.Value);
-    }
-
-    private Vector3? MousePositionInWorld()
-    {
-        var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit))
-        {
-            return raycastHit.point;
-        }
-
-        return null;
     }
     
     private void MouseButtonPressed()

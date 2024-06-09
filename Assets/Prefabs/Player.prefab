@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1210488194687266084}
   - component: {fileID: 5028048280317561121}
   - component: {fileID: -4073023703254971532}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!114 &1210488194687266084
@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputEvents: {fileID: 11400000, guid: 02eb59084f34e594791e992d10ddd54b, type: 2}
+  gameInfo: {fileID: 11400000, guid: 4b00ed97346e3f3488f1814f083ac28c, type: 2}
   rigidbodyComponent: {fileID: 7503897418960394551}
   groundHitbox: {fileID: 3064523724160463406}
   groundLayer:
@@ -176,7 +177,7 @@ MonoBehaviour:
     type: 3}
   attackSpeed: 1
   inputEvents: {fileID: 11400000, guid: 02eb59084f34e594791e992d10ddd54b, type: 2}
-  mainCamera: {fileID: 0}
+  gameInfo: {fileID: 11400000, guid: 4b00ed97346e3f3488f1814f083ac28c, type: 2}
   autoAimRange: 50
   enemyLayer:
     serializedVersion: 2
@@ -193,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c884a2621b0e2e449cc77346529584c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHP: 0
+  currentHp: 0
   maxHp: 100
 --- !u!1 &8135316546577489665
 GameObject:
