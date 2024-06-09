@@ -7,8 +7,7 @@ public class EnemySpawner : MonoBehaviour
     private int currentSpawn;
     private int currentEnemy;
 
-    public Vector2 spawnPoint1;
-    public Vector2 spawnPoint2;
+    [SerializeField] private Transform[] spawnPoints;
 
     [SerializeField] private float warmUpTime;
 
@@ -67,9 +66,9 @@ public class EnemySpawner : MonoBehaviour
     private void InstantiateEnemyObject()
     {
         var enemyObject = enemyWaves[currentWave].wave[currentSpawn].EnemyObject;
-        var positionX = Random.Range(spawnPoint1.x, spawnPoint2.x);
-        var positionZ = Random.Range(spawnPoint1.y, spawnPoint2.y);
-        Vector3 spawnPosition = new Vector3(positionX, 9, positionZ);
+        var randomSpawnPoint = Random.Range(0, spawnPoints.Length - 1);
+        
+        Vector3 spawnPosition = new Vector3(spawnPoints[randomSpawnPoint].position.x, 9, spawnPoints[randomSpawnPoint].position.z);
         
         var newEnemy = Instantiate(enemyObject, spawnPosition, enemyObject.transform.rotation);
         
