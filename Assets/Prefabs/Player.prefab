@@ -154,6 +154,9 @@ MonoBehaviour:
   inputEvents: {fileID: 11400000, guid: 02eb59084f34e594791e992d10ddd54b, type: 2}
   rigidbodyComponent: {fileID: 7503897418960394551}
   groundHitbox: {fileID: 3064523724160463406}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
   movementSpeed: 8
   jumpForce: 200
 --- !u!114 &5028048280317561121
@@ -174,6 +177,10 @@ MonoBehaviour:
   attackSpeed: 1
   inputEvents: {fileID: 11400000, guid: 02eb59084f34e594791e992d10ddd54b, type: 2}
   mainCamera: {fileID: 0}
+  autoAimRange: 50
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &-4073023703254971532
 MonoBehaviour:
   m_ObjectHideFlags: 0

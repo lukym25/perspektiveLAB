@@ -6,6 +6,10 @@ public class PlayerAttack : Attack
     private InputEvents inputEvents;
     [SerializeField] 
     private Camera mainCamera;
+    
+    public float autoAimRange;
+    [SerializeField]
+    private LayerMask enemyLayer;
 
     private bool autoAim = true;
 
@@ -13,7 +17,7 @@ public class PlayerAttack : Attack
     {
         if (autoAim)
         {
-            AutomaticAttack();
+            AutoAttack();
         }
         else
         {
@@ -21,7 +25,7 @@ public class PlayerAttack : Attack
         }
     }
 
-    private void AutomaticAttack()
+    private void AutoAttack()
     {
         var closestEnemy = FindClosestEnemy();
         
@@ -33,16 +37,25 @@ public class PlayerAttack : Attack
     
     private Transform FindClosestEnemy()
     {
+        //cast Sphere and Find all enemies in range; max found 10
+        Collider[] results = new Collider[10];
+        var numberOfCollisions = Physics.OverlapSphereNonAlloc(transform.position, autoAimRange, results, enemyLayer.value);
+        
+        if(numberOfCollisions == 0) {return null;}
+        
+        
+        //go through all enemies found and decide which is closest 
         Transform closestEnemy = null;
         float distanceToClosestEnemy = 500;
         
-        //go through all enemies and find closest to this object 
-        foreach (var enemy in InstancesManager.Instance.enemies )
+        foreach (var enemy in results )
         {
-            var distanceToEnemy = Vector3.Distance(transform.position, enemy.position);
+            if(enemy == null) {continue;}
+            
+            var distanceToEnemy = Vector3.Distance(transform.position, enemy.gameObject.transform.position);
             if (distanceToEnemy < distanceToClosestEnemy)
             {
-                closestEnemy = enemy;
+                closestEnemy = enemy.transform;
                 distanceToClosestEnemy = distanceToEnemy;
             }
         }

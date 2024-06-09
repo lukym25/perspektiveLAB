@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 995cdfde347abb045aa14898e7a5faef, type: 3}
+  m_Name: FinalWave
+  m_EditorClassIdentifier: 
+  wave:
+  - EnemyObject: {fileID: 1392346211691342383, guid: db3581342c9065c4394b8958e5246a32,
+      type: 3}
+    NumberOfEnemies: 50
+    IntervalTime: 0.01

@@ -6,8 +6,11 @@ public class PlayerMovement : MonoBehaviour
     private InputEvents inputEvents;
     [SerializeField]
     private Rigidbody rigidbodyComponent;
+    
     [SerializeField] 
     private Transform groundHitbox;
+    [SerializeField] 
+    private LayerMask groundLayer;
     
     
     public float movementSpeed;
@@ -39,13 +42,10 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsOnGround()
     {
-        //map layer = 6
-        var checkLayer = 1 << 6;
-        
-        var collider =  Physics.OverlapBox(groundHitbox.position, groundHitbox.localScale, Quaternion.identity, checkLayer);
-        Debug.Log(groundHitbox.localScale);
-        Debug.Log(collider.Length);
-        return collider.Length != 0;
+        Collider[] results = new Collider[1];
+        var numberOfCollisions = Physics.OverlapBoxNonAlloc(groundHitbox.position, groundHitbox.localScale, results, Quaternion.identity, groundLayer.value);
+
+        return numberOfCollisions > 0;
     }
 
     private void OnEnable()
