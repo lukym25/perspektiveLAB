@@ -6,11 +6,11 @@ public class ProjectileBehaviour : MonoBehaviour
     public float projectileSpeed;
     public LayerMask targetLayer;
     public float lifeTime;
-    private float aliveTime = 0;
+    private float aliveTime;
 
     private void LateUpdate()
     {
-        //destory after lifeTime time
+        //destroy after lifeTime time
         aliveTime += Time.deltaTime;
         if (aliveTime >= lifeTime)
         {

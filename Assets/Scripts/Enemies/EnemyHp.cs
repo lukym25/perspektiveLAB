@@ -1,22 +1,21 @@
-using System;
 using UnityEngine;
 
 public class EnemyHp : MonoBehaviour, IHpSystem
 {
     //[HideInInspector]
-    public float currentHP;
+    public float currentHp;
     public float maxHp;
 
     private void Awake()
     {
-        currentHP = maxHp;
+        currentHp = maxHp;
     }
 
     public void Damage(float damageAmount)
     {
-        currentHP -= damageAmount;
+        currentHp -= damageAmount;
 
-        if (currentHP <= 0)
+        if (currentHp <= 0)
         {
             EnemyDied();
         }

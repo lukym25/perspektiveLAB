@@ -3,17 +3,22 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public Transform followedObject;
-    [SerializeField] private Rigidbody rigidbodyComponent;
+    [SerializeField] protected Rigidbody rigidbodyComponent;
     
     public float movementSpeed;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         followedObject = InstancesManager.Instance.player;
     }
 
     // Update is called once per frame
     private void FixedUpdate()
+    {
+        Move();
+    }
+
+    protected virtual void Move()
     {
         var moveDirection = followedObject.position - transform.position;
         var moveVelocity = moveDirection.normalized * movementSpeed;

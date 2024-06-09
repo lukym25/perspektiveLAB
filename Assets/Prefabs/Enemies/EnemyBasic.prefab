@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 787653352095291098}
   - component: {fileID: -4851523992078832842}
   m_Layer: 8
-  m_Name: Enemy
+  m_Name: EnemyBasic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,7 +134,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &1378382538835596024
 MonoBehaviour:
@@ -167,7 +167,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3669179403988033037, guid: 85d3977d9640dd544b9e25b8ee31468b,
     type: 3}
   attackSpeed: 0.5
-  attackRadius: 10
+  attackRadius: 15
 --- !u!114 &-4851523992078832842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,5 +180,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e455c7ffe2a2e4a40951f6ff02dc3ea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHP: 0
+  currentHp: 0
   maxHp: 20

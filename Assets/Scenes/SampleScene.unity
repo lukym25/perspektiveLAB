@@ -7245,6 +7245,11 @@ PrefabInstance:
       propertyPath: AttackingOnObject
       value: 
       objectReference: {fileID: 1565990408}
+    - target: {fileID: 5028048280317561121, guid: b9b41dcd2bc031840a27cd05920d8c2e,
+        type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 6073269372699777145, guid: b9b41dcd2bc031840a27cd05920d8c2e,
         type: 3}
       propertyPath: m_LocalPosition.x

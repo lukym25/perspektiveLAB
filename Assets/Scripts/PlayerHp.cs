@@ -1,22 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHp : MonoBehaviour, IHpSystem
 {
-    public float currentHP;
+    public float currentHp;
     public float maxHp;
     
     private void Awake()
     {
-        currentHP = maxHp;
+        currentHp = maxHp;
     }
 
     public void Damage(float damageAmount)
     {
-        currentHP -= damageAmount;
+        currentHp -= damageAmount;
 
-        if (currentHP <= 0)
+        if (currentHp <= 0)
         {
             PlayerDied();
         }
