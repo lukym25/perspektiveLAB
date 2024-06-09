@@ -24,8 +24,8 @@ public class ProjectileBehaviour : MonoBehaviour
         
         if (collision.gameObject.layer == (int)layerValue)
         {
-            Debug.Log("Hit");
-            Destroy(gameObject);
+            var hpSystem = collision.gameObject.GetComponent<IHpSystem>();
+            hpSystem.Damage(projectileDamage);
         }
         
         Destroy(gameObject);

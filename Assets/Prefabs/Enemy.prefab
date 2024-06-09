@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 8861066221537844947}
   - component: {fileID: 1378382538835596024}
   - component: {fileID: 787653352095291098}
-  m_Layer: 0
+  - component: {fileID: -4851523992078832842}
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,9 +163,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca534c29a51d15d4792b2b8702bbae4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackingOnObject: {fileID: 0}
+  attackingOnObject: {fileID: 0}
   projectilePrefab: {fileID: 3669179403988033037, guid: 85d3977d9640dd544b9e25b8ee31468b,
     type: 3}
-  projectileSpeed: 20
   attackSpeed: 0.5
   attackRadius: 10
+--- !u!114 &-4851523992078832842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392346211691342383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e455c7ffe2a2e4a40951f6ff02dc3ea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHP: 0
+  maxHp: 20

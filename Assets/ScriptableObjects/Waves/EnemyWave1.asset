@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 995cdfde347abb045aa14898e7a5faef, type: 3}
   m_Name: EnemyWave1
   m_EditorClassIdentifier: 
-  Wave:
+  wave:
   - EnemyObject: {fileID: 1392346211691342383, guid: db3581342c9065c4394b8958e5246a32,
       type: 3}
     NumberOfEnemies: 3
