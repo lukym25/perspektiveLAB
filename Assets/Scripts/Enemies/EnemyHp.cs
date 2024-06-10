@@ -5,6 +5,7 @@ public class EnemyHp : MonoBehaviour, IHpSystem
     //[HideInInspector]
     public float currentHp;
     public float maxHp;
+    public string name;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class EnemyHp : MonoBehaviour, IHpSystem
     private void EnemyDied()
     {
         InstancesManager.Instance.enemies.Remove(gameObject.transform);
+        KillCounter.Instance.Died(name);
         
         Destroy(gameObject);
     }

@@ -182,3 +182,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHp: 0
   maxHp: 20
+  name: BasicEnemy

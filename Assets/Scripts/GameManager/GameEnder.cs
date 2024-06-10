@@ -14,6 +14,8 @@ public class GameEnder : Singelton<GameEnder>
     
     [SerializeField] private Slider hpSliderStored;
     [SerializeField] private TextMeshProUGUI hpTextStored;
+
+    [SerializeField] private GameObject killCounter;
     
     public void RestartGame()
     {
@@ -36,6 +38,8 @@ public class GameEnder : Singelton<GameEnder>
         
         //delete player
         Destroy(InstancesManager.Instance.player.gameObject);
+        
+        KillCounter.Instance.Reset();
     }
 
     private void SpawnNewPlayer()

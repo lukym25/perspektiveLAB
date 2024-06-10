@@ -10,6 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4851523992078832842, guid: db3581342c9065c4394b8958e5246a32,
         type: 3}
+      propertyPath: name
+      value: heavy
+      objectReference: {fileID: 0}
+    - target: {fileID: -4851523992078832842, guid: db3581342c9065c4394b8958e5246a32,
+        type: 3}
       propertyPath: maxHp
       value: 50
       objectReference: {fileID: 0}
@@ -37,7 +42,7 @@ PrefabInstance:
     - target: {fileID: 1392346211691342383, guid: db3581342c9065c4394b8958e5246a32,
         type: 3}
       propertyPath: m_Name
-      value: HeavyEnemyVariant
+      value: EnemyHeavyVariant
       objectReference: {fileID: 0}
     - target: {fileID: 3326930425847634117, guid: db3581342c9065c4394b8958e5246a32,
         type: 3}

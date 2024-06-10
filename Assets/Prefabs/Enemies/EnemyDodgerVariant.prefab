@@ -8,6 +8,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4851523992078832842, guid: db3581342c9065c4394b8958e5246a32,
+        type: 3}
+      propertyPath: name
+      value: Dodger
+      objectReference: {fileID: 0}
     - target: {fileID: 787653352095291098, guid: db3581342c9065c4394b8958e5246a32,
         type: 3}
       propertyPath: attackSpeed
