@@ -5,7 +5,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] private Transform followedObject;
+    private Transform followedObject;
     [SerializeField] private Transform cameraObject;
     [SerializeField] private GameInfo gameInfo;
 
@@ -22,7 +22,12 @@ public class CameraMovement : MonoBehaviour
             
         Debug.Log(absoluteOffset);
     }
-    
+
+    private void Start()
+    {
+        followedObject = InstancesManager.Instance.player;
+    }
+
     private void Update()
     {
         if (gameInfo.gameState == GameStateEnum.InGame)

@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void PlayerJump()
     {
+        if(gameInfo.gameState != GameStateEnum.InGame) {return;}
         if(!IsOnGround()) { return;}
         
         rigidbodyComponent.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);

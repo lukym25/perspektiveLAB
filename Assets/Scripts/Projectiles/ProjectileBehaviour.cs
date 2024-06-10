@@ -24,7 +24,7 @@ public class ProjectileBehaviour : MonoBehaviour
         
         if (collision.gameObject.layer == (int)layerValue)
         {
-            var hpSystem = collision.gameObject.GetComponent<IHpSystem>();
+            var hpSystem = collision.gameObject.GetComponent<HpSystem>();
             hpSystem.Damage(projectileDamage);
         }
         

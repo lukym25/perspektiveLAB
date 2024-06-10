@@ -2,30 +2,26 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
-public class PlayerHp : MonoBehaviour, IHpSystem
+public class PlayerHp :  HpSystem
 {
-    public float currentHp;
-    public float maxHp;
     public Slider hpSlider;
     public TextMeshProUGUI hpText;
     
     private void Start()
     {
-        currentHp = maxHp;
-
         UpdateUI();
     }
 
-    public void Damage(float damageAmount)
+    protected override void Hit()
     {
-        currentHp -= damageAmount;
-
         UpdateUI();
+    }
 
-        if (currentHp <= 0)
-        {
-            PlayerDied();
-        }
+    protected override void Died()
+    {
+        gameObject.SetActive(false);
+        
+        GameEnder.Instance.RestartGame();
     }
 
     private void UpdateUI()
@@ -40,12 +36,5 @@ public class PlayerHp : MonoBehaviour, IHpSystem
             var newText = currentHp + "/" + maxHp;
             hpText.text = newText;
         }
-    }
-
-    private void PlayerDied()
-    {
-        gameObject.SetActive(false);
-        
-        GameEnder.Instance.RestartGame();
-    }
+    } 
 }

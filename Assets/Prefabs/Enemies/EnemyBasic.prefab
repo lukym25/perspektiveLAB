@@ -182,4 +182,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHp: 0
   maxHp: 20
+  hitParticle: {fileID: 6358273353390184044, guid: b5dc5077508459b4e8a73b22bad1294d,
+    type: 3}
+  deathParticle: {fileID: 3007521824113132234, guid: 4bcccaeb63576304e839dbf064545098,
+    type: 3}
   name: BasicEnemy

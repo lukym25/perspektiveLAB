@@ -1,28 +1,11 @@
+using System.Collections;
 using UnityEngine;
 
-public class EnemyHp : MonoBehaviour, IHpSystem
+public class EnemyHp : HpSystem
 {
-    //[HideInInspector]
-    public float currentHp;
-    public float maxHp;
     public string name;
-
-    private void Awake()
-    {
-        currentHp = maxHp;
-    }
-
-    public void Damage(float damageAmount)
-    {
-        currentHp -= damageAmount;
-
-        if (currentHp <= 0)
-        {
-            EnemyDied();
-        }
-    }
-
-    private void EnemyDied()
+    
+    protected override void Died()
     {
         InstancesManager.Instance.enemies.Remove(gameObject.transform);
         KillCounter.Instance.Died(name);

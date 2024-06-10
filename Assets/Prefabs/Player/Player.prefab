@@ -175,7 +175,7 @@ MonoBehaviour:
   attackingOnObject: {fileID: 0}
   projectilePrefab: {fileID: 8079625685817341165, guid: ecc0c5bc6a209254e84e499281d60117,
     type: 3}
-  attackSpeed: 1
+  attackSpeed: 0.75
   inputEvents: {fileID: 11400000, guid: 02eb59084f34e594791e992d10ddd54b, type: 2}
   gameInfo: {fileID: 11400000, guid: 4b00ed97346e3f3488f1814f083ac28c, type: 2}
   autoAimRange: 50
@@ -196,6 +196,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHp: 0
   maxHp: 100
+  hitParticle: {fileID: 3950831036813357948, guid: cca6d2e9bc7dd574d8800105327abc71,
+    type: 3}
+  deathParticle: {fileID: 3085353264447628986, guid: 2115a2bb309d2fa4a910f4c2e50f250c,
+    type: 3}
+  hpSlider: {fileID: 0}
+  hpText: {fileID: 0}
 --- !u!1 &8135316546577489665
 GameObject:
   m_ObjectHideFlags: 0
