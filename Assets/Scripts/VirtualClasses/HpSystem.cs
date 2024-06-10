@@ -31,6 +31,23 @@ public class HpSystem : MonoBehaviour
             Died();
         }
     }
+    
+    public void Heal(float healAmount)
+    {
+        currentHp += healAmount;
+
+        if (currentHp > maxHp)
+        {
+            currentHp = maxHp;
+        }
+        
+        OnHeal();
+    }
+
+    protected virtual void OnHeal()
+    {
+        
+    }
 
     protected virtual void Hit()
     {

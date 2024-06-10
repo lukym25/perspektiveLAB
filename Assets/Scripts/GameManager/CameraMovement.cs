@@ -19,8 +19,6 @@ public class CameraMovement : MonoBehaviour
     {
         gameInfo.cameraRotation = cameraObject.rotation.eulerAngles.y;
         CalculateStartingValues();
-            
-        Debug.Log(absoluteOffset);
     }
 
     private void Start()

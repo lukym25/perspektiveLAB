@@ -24,6 +24,11 @@ public class PlayerHp :  HpSystem
         GameEnder.Instance.RestartGame();
     }
 
+    protected override void OnHeal()
+    {
+        UpdateUI();
+    }
+
     private void UpdateUI()
     {
         if (hpSlider != null)
