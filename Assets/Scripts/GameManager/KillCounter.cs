@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using Lukas.MyClass;
@@ -55,10 +56,6 @@ public class KillCounter : Singelton<KillCounter>
         var newTMP = newRow.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         if(newTMP == null) {return;}
         textsForValue.Add(newTMP);
-
-        /*var rectTransform = killCounterUIElement.GetComponent<RectTransform>();
-        if(rectTransform == null) {return;}
-        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + 60);*/
         
         UpdateCounter();
     }
@@ -73,4 +70,44 @@ public class KillCounter : Singelton<KillCounter>
             Destroy(killCounterUIElement.GetChild(i).gameObject);
         }
     }
+    
+    
+    /*
+     in my case I work with events, so I think this type of check is unnecessary
+     values update automatically after unit dies
+     For this reason, I put code only in comments
+     
+     private void Start() 
+     {
+        StartCoroutine(UpdateValues());
+     }   
+     
+     
+    private IEnumerator UpdateValues()
+    {
+        yield return new WaitForSeconds(3f);
+        
+        int i = 0;
+        foreach (var numberOfKills in killStatistics.Values)
+        {
+            //get string of number from UI
+            var textUIEnement = textsForValue[i].text; 
+            string[] splitArray =  textUIEnement.Split(char.Parse(":"));
+            var numberInString = splitArray[1];
+            
+            //try to parse it to number
+            int numberFromUI;
+            int.TryParse(numberInString, out numberFromUI);
+            
+            if (numberOfKills != numberFromUI)
+            {
+                UpdateCounter();
+            }
+            
+            i++;
+        }
+
+        StartCoroutine(UpdateValues());
+    }
+    */
 }
