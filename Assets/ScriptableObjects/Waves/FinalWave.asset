@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: FinalWave
   m_EditorClassIdentifier: 
   wave:
-  - EnemyObject: {fileID: 2492706925005751642, guid: f2d23b686f022a5429d624423f8c3c5c,
+  - EnemyObject: {fileID: 1063733676296366919, guid: 84703ac252cd0ad4caed1d294883673a,
       type: 3}
-    NumberOfEnemies: 1
-    IntervalTime: 0
+    NumberOfEnemies: 0
+    IntervalTime: 20
+  - EnemyObject: {fileID: 1063733676296366919, guid: 84703ac252cd0ad4caed1d294883673a,
+      type: 3}
+    NumberOfEnemies: 50
+    IntervalTime: 0.1

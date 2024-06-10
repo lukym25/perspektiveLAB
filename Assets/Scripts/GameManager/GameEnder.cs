@@ -46,7 +46,7 @@ public class GameEnder : Singelton<GameEnder>
     {
         var newPlayer = Instantiate(player, playerSpawnPoint.position, playerSpawnPoint.rotation);
         
-        cameraMovement.ChangeFolowedObject(newPlayer.transform);
+        cameraMovement.ChangeFollowedObject(newPlayer.transform);
         InstancesManager.Instance.player = newPlayer.transform;
 
         var hpScript = newPlayer.GetComponent<PlayerHp>();

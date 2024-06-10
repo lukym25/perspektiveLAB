@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         //camera is slightly tilted (30 degrees in y-axis), so the move direction must be recalculated
-        var rotationInRad = 30 * Mathf.Deg2Rad;
+        var rotationInRad = gameInfo.cameraRotation * Mathf.Deg2Rad;
         var moveDirectionX = inputEvents.verticalInput * Mathf.Sin(rotationInRad) + inputEvents.horizontalInput * Mathf.Cos(rotationInRad);
         var moveDirectionZ = inputEvents.verticalInput * Mathf.Cos(rotationInRad) - inputEvents.horizontalInput * Mathf.Sin(rotationInRad);
         //direction is automatically normalized with math

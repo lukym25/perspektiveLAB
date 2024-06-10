@@ -10,4 +10,5 @@ public enum GameStateEnum
 public class GameInfo : ScriptableObject
 {
     public GameStateEnum gameState;
+    public float cameraRotation;
 }
