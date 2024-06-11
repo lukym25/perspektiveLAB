@@ -1,27 +1,32 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class EnemyMovementDodger : EnemyMovement
 {
-    public float speedOnYAxis;
-    public float hieghtOffset;
-    private float timeForSinus;
+    [SerializeField] private float movementSpeedOnYAxis;
+    [SerializeField] private float heightMaxOffset;
+    
+    private float timeForSinusFunc;
 
     protected override void Awake()
     {
+        Assert.IsTrue(movementSpeedOnYAxis >= 0, "The movementSpeedOnYAxis is not negative");
+        Assert.IsTrue(heightMaxOffset >= 0, "The heightOffset is not negative");
+        
         base.Awake();
 
-        timeForSinus = Random.Range(0f, 2 * Mathf.PI);
+        timeForSinusFunc = 0;
     }
 
     private void Update()
     {
-        timeForSinus += Time.deltaTime;
+        timeForSinusFunc += Time.deltaTime;
     }
 
     protected override void Move()
     {
-        var moveDirection = followedObject.position - transform.position;
-        var moveVelocity = moveDirection.normalized * movementSpeed;
+        var moveDirection = (followedObject.position - transform.position).normalized;
+        var moveVelocity = moveDirection * movementSpeed;
         
         /*
          normally for set position the equation is: y = hieghtOffset * Mathf.Sin(timeForSinus * speedOnYAxis);
@@ -30,8 +35,8 @@ public class EnemyMovementDodger : EnemyMovement
          this is the correct way to do it, because in this form you can set the correct amplitude  
          */
         
-        var moveOnYAxis = hieghtOffset * speedOnYAxis * Mathf.Cos(timeForSinus * speedOnYAxis);
+        var velocityOnYAxis = heightMaxOffset * movementSpeedOnYAxis * Mathf.Cos(timeForSinusFunc * movementSpeedOnYAxis);
         
-        rigidbodyComponent.velocity = new Vector3(moveVelocity.x, moveOnYAxis, moveVelocity.z);
+        rigidbodyComponent.velocity = new Vector3(moveVelocity.x, velocityOnYAxis, moveVelocity.z);
     }
 }

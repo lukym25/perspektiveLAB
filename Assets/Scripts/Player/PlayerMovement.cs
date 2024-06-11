@@ -1,22 +1,28 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private InputEvents inputEvents;
-    [SerializeField] 
-    private GameInfo gameInfo;
-    [SerializeField]
-    private Rigidbody rigidbodyComponent;
+    [SerializeField] private InputEvents inputEvents;
+    [SerializeField] private GameInfo gameInfo;
+    [SerializeField] private Rigidbody rigidbodyComponent;
     
-    [SerializeField] 
-    private Transform groundHitbox;
-    [SerializeField] 
-    private LayerMask groundLayer;
+    [SerializeField] private Transform groundHitbox;
+    [SerializeField] private LayerMask groundLayer;
     
-    public float movementSpeed;
-    public float jumpForce;
-    
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private float jumpForce;
+
+    private void Awake()
+    {
+        Assert.IsNotNull(inputEvents, "The inputEvents is null");
+        Assert.IsNotNull(gameInfo, "The gameInfo is null");
+        Assert.IsNotNull(rigidbodyComponent, "The rigidbodyComponent is null");
+        Assert.IsNotNull(groundHitbox, "The groundHitbox is null");
+        Assert.IsTrue(movementSpeed >= 0, "The movementSpeed is negative");
+        Assert.IsTrue(jumpForce >= 0, "The jumpForce is negative");
+    }
+
     private void FixedUpdate()
     {
         if(gameInfo.gameState != GameStateEnum.InGame) {return;}
@@ -26,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        //camera is slightly tilted (30 degrees in y-axis), so the move direction must be recalculated
+        //camera is slightly tilted on y-axis, so the move direction must be recalculated
         var rotationInRad = gameInfo.cameraRotation * Mathf.Deg2Rad;
         var moveDirectionX = inputEvents.verticalInput * Mathf.Sin(rotationInRad) + inputEvents.horizontalInput * Mathf.Cos(rotationInRad);
         var moveDirectionZ = inputEvents.verticalInput * Mathf.Cos(rotationInRad) - inputEvents.horizontalInput * Mathf.Sin(rotationInRad);

@@ -2,29 +2,29 @@ using UnityEngine;
 
 namespace Lukas.MyClass
 {
-    public class Singelton<T> : MonoBehaviour
+    public class Singleton<T> : MonoBehaviour
         where T : Component
     {
-        private static T RealInstance;
+        private static T realInstance;
         public static T Instance
         {
             get
             {
-                if (RealInstance == null)
+                if (realInstance == null)
                 {
                     T[] objects = FindObjectsOfType(typeof(T)) as T[];
                     if (objects?.Length > 0)
                     {
-                        RealInstance = objects[0];
+                        realInstance = objects[0];
                     }
                     else
                     {
                         GameObject obj = new GameObject();
-                        RealInstance = obj.AddComponent<T>();
+                        realInstance = obj.AddComponent<T>();
                     }
                 }
                 
-                return RealInstance;
+                return realInstance;
             }
         }
     }

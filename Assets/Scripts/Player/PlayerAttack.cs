@@ -1,17 +1,26 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class PlayerAttack : Attack
 {
-    [SerializeField]
-    private InputEvents inputEvents;
-    [SerializeField] 
-    private GameInfo gameInfo;
+    [SerializeField] private InputEvents inputEvents;
+    [SerializeField] private GameInfo gameInfo;
     
-    public float autoAimRange;
-    [SerializeField]
-    private LayerMask enemyLayer;
+    [SerializeField] private float autoAimRange;
+    [SerializeField] private LayerMask enemyLayer;
 
-    private bool autoAim = true;
+    private bool autoAim;
+
+    protected virtual void Awake()
+    {
+        Assert.IsNotNull(inputEvents, "The inputEvents is null");
+        Assert.IsNotNull(gameInfo, "The gameInfo is null");
+        Assert.IsTrue(autoAimRange >= 0, "The autoAimRange is negative");
+        
+        base.Awake();
+
+        autoAim = true;
+    }
 
     private void FixedUpdate()
     {
@@ -33,31 +42,31 @@ public class PlayerAttack : Attack
         
         if (closestEnemy == null) {return;}
         
-        attackingOnObject = closestEnemy;
+        targetObject = closestEnemy;
         Shoot();
     }
     
+    //can return null
     private Transform FindClosestEnemy()
     {
         //cast Sphere and Find all enemies in range; max found 10
-        Collider[] results = new Collider[10];
-        var numberOfCollisions = Physics.OverlapSphereNonAlloc(transform.position, autoAimRange, results, enemyLayer.value);
+        Collider[] collidersFound = new Collider[10];
+        var numberOfCollisions = Physics.OverlapSphereNonAlloc(transform.position, autoAimRange, collidersFound, enemyLayer.value);
         
         if(numberOfCollisions == 0) {return null;}
         
-        
         //go through all enemies found and decide which is closest 
         Transform closestEnemy = null;
-        float distanceToClosestEnemy = 500;
+        float distanceToClosestEnemy = autoAimRange + 1;
         
-        foreach (var enemy in results )
+        foreach (var enemyCollider in collidersFound )
         {
-            if(enemy == null) {continue;}
+            if(enemyCollider == null) {continue;}
             
-            var distanceToEnemy = Vector3.Distance(transform.position, enemy.gameObject.transform.position);
+            var distanceToEnemy = Vector3.Distance(transform.position, enemyCollider.gameObject.transform.position);
             if (distanceToEnemy < distanceToClosestEnemy)
             {
-                closestEnemy = enemy.transform;
+                closestEnemy = enemyCollider.transform;
                 distanceToClosestEnemy = distanceToEnemy;
             }
         }

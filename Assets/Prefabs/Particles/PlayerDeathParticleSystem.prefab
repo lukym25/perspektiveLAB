@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2087233602373318965}
   - component: {fileID: 6916019203861803298}
   m_Layer: 0
-  m_Name: PlayerDeathdParticleSystem
+  m_Name: PlayerDeathParticleSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

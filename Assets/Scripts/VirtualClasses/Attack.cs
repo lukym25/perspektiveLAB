@@ -1,18 +1,21 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Attack : MonoBehaviour
 {
-    [SerializeField]
-    protected Transform attackingOnObject;
-    [SerializeField]
-    protected GameObject projectilePrefab;
+    [SerializeField] protected Transform targetObject;
+    [SerializeField] protected GameObject projectilePrefab;
     
-    public float attackSpeed; //Attacks per second
+    [SerializeField] private float attacksPerSecond;
 
     private Timer attackCooldownTimer;
 
     protected virtual void Awake()
     {
+        Assert.IsNotNull(projectilePrefab, "The projectilePrefab is null");
+        Assert.IsTrue(attacksPerSecond >= 0, "The attacksPerSecond is negative");
+        //targetObject can be null
+        
         attackCooldownTimer = new Timer(0);
     }
 
@@ -23,9 +26,9 @@ public class Attack : MonoBehaviour
     
     protected void Shoot()
     {
-        if (attackingOnObject == null) {return;}
+        if (targetObject == null) {return;}
 
-        ShootOnTargetPosition(attackingOnObject.position);
+        ShootOnTargetPosition(targetObject.position);
     }
     
     protected void ShootOnTargetPosition(Vector3 targetPosition)
@@ -33,7 +36,7 @@ public class Attack : MonoBehaviour
         if(attackCooldownTimer.RemainingTime > 0) {return;}
         
         var shootingDirection = (targetPosition - transform.position).normalized;
-        var positionOfNewProjectile = shootingDirection + transform.position;
+        var positionOfNewProjectile = transform.position + shootingDirection;
         
         var newProjectile = Instantiate(projectilePrefab, positionOfNewProjectile, projectilePrefab.transform.rotation);
         
@@ -45,6 +48,6 @@ public class Attack : MonoBehaviour
         
         rigidBodyOfProjectile.velocity = shootingDirection * projectileBehaviour.projectileSpeed;
 
-        attackCooldownTimer.RemainingTime = 1 / attackSpeed;
+        attackCooldownTimer.RemainingTime = 1 / attacksPerSecond;
     }
 }

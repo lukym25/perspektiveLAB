@@ -1,19 +1,26 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class EnemyHp : HpSystem
 {
-    public string name;
+    [SerializeField] string nameOfEnemy;
+    [SerializeField] private GameObject healItemPrefab;
 
-    [SerializeField] 
-    private GameObject healItem;
+    protected override void Awake()
+    {
+        Assert.IsNotNull(healItemPrefab, "The healItemPrefab is null");
+        Assert.IsNotNull(nameOfEnemy, "The nameOfEnemy is null");
+        
+        base.Awake();
+    }
     
-    protected override void Died()
+    protected override void OnDeath()
     {
         InstancesManager.Instance.enemies.Remove(gameObject.transform);
-        KillCounter.Instance.Died(name);
+        KillCounter.Instance.EnemyDied(nameOfEnemy);
 
-        Instantiate(healItem, transform.position, healItem.transform.rotation);
+        var newHealItem = Instantiate(healItemPrefab, transform.position, healItemPrefab.transform.rotation);
+        InstancesManager.Instance.objects.Add(newHealItem.transform);
         
         Destroy(gameObject);
     }

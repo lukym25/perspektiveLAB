@@ -31,8 +31,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7078642129161325137}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.5, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -172,10 +172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d283cfce4196d8e4dbc9f6d81550de93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackingOnObject: {fileID: 0}
+  targetObject: {fileID: 0}
   projectilePrefab: {fileID: 8079625685817341165, guid: ecc0c5bc6a209254e84e499281d60117,
     type: 3}
-  attackSpeed: 0.75
+  attacksPerSecond: 1
   inputEvents: {fileID: 11400000, guid: 02eb59084f34e594791e992d10ddd54b, type: 2}
   gameInfo: {fileID: 11400000, guid: 4b00ed97346e3f3488f1814f083ac28c, type: 2}
   autoAimRange: 50

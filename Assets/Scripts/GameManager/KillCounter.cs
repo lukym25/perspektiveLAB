@@ -1,26 +1,27 @@
-using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using Lukas.MyClass;
 using TMPro;
+using UnityEngine.Assertions;
 
-public class KillCounter : Singelton<KillCounter>
+public class KillCounter : Singleton<KillCounter>
 {
-    [SerializeField]
-    private Transform killCounterUIElement;
-    [SerializeField]
-    private GameObject killCounterRowPrefab;
+    [SerializeField] private Transform killCounterUIElement;
+    [SerializeField] private GameObject killCounterRowPrefab;
     
     private Dictionary<string, int> killStatistics;
     private List<TextMeshProUGUI> textsForValue;
 
     private void Awake()
     {
+        Assert.IsNotNull(killCounterUIElement, "The killCounterUIElement is null");
+        Assert.IsNotNull(killCounterRowPrefab, "The killCounterRowPrefab is null");
+        
         killStatistics = new Dictionary<string, int>();
         textsForValue = new List<TextMeshProUGUI>();
     }
 
-    public void Died(string name)
+    public void EnemyDied(string name)
     {
         foreach (var nameInKillStatistics in killStatistics.Keys)
         {
@@ -65,6 +66,7 @@ public class KillCounter : Singelton<KillCounter>
         killStatistics = new Dictionary<string, int>();
         textsForValue = new List<TextMeshProUGUI>();
         
+        //Destroy all rows
         for(int i = killCounterUIElement.childCount - 1; i >= 0; i--)
         {
             Destroy(killCounterUIElement.GetChild(i).gameObject);

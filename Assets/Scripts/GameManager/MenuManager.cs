@@ -1,5 +1,5 @@
-using Lukas.MyClass;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class MenuManager : MonoBehaviour
 {
@@ -10,6 +10,11 @@ public class MenuManager : MonoBehaviour
 
     private void Awake()
     {
+        Assert.IsNotNull(gameInfo, "The gameInfo is null");
+        Assert.IsNotNull(mainMenu, "The mainMenu is null");
+        Assert.IsNotNull(inGameUI, "The inGameUI is null");
+        Assert.IsNotNull(enemySpawner, "The enemySpawner is null");
+        
         gameInfo.gameState = GameStateEnum.InMenu;
     }
 

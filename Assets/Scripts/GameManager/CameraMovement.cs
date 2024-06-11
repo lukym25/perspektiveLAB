@@ -1,7 +1,5 @@
-using System;
+using UnityEngine.Assertions;
 using UnityEngine;
-using Vector2 = UnityEngine.Vector2;
-using Vector3 = UnityEngine.Vector3;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -9,14 +7,19 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Transform cameraObject;
     [SerializeField] private GameInfo gameInfo;
 
-    public float rotationPeriod;
+    [SerializeField] private float rotationPeriod;
     
-    private float timeForRotation; 
+    private float timeForRotationSinusFunc; 
     private Vector3 currentOffset;
-    private Vector3 absoluteOffset;
+    private Vector3 maxOffset;
 
     private void Awake()
     {
+        Assert.IsNotNull(cameraObject, "The cameraObject is null");
+        Assert.IsNotNull(gameInfo, "The gameInfo is null");
+        
+        Assert.IsTrue(rotationPeriod >= 0, "The rotationPeriod is negative");
+        
         gameInfo.cameraRotation = cameraObject.rotation.eulerAngles.y;
         CalculateStartingValues();
     }
@@ -34,7 +37,7 @@ public class CameraMovement : MonoBehaviour
         }
         else
         {
-            timeForRotation += Time.deltaTime;
+            timeForRotationSinusFunc += Time.deltaTime;
             MoveCameraInMenu();
         }
     }
@@ -52,9 +55,9 @@ public class CameraMovement : MonoBehaviour
          Time.deltaTime * 2 * Mathf.PI make is rotate 360 deg per sec
          / rotationPeriod make it rotate 1 cycle per rotationPeriod
          */
-        var positionX = absoluteOffset.x * Mathf.Cos(timeForRotation * 2 * Mathf.PI / rotationPeriod);
-        var positionZ = absoluteOffset.z * Mathf.Sin(timeForRotation * 2 * Mathf.PI / rotationPeriod);
-        cameraObject.position = new Vector3(positionX, absoluteOffset.y, positionZ);
+        var positionX = maxOffset.x * Mathf.Cos(timeForRotationSinusFunc * 2 * Mathf.PI / rotationPeriod);
+        var positionZ = maxOffset.z * Mathf.Sin(timeForRotationSinusFunc * 2 * Mathf.PI / rotationPeriod);
+        cameraObject.position = new Vector3(positionX, maxOffset.y, positionZ);
         
         /*Time.deltaTime * 360 make rotation 360 deg per sec
          / rotationPeriod make it rotate 1 cycle per rotationPeriod
@@ -80,9 +83,9 @@ public class CameraMovement : MonoBehaviour
         startingAngle *= Mathf.Deg2Rad;
         
         //calculate max values for x and z
-        absoluteOffset = new Vector3(cameraObject.position.x / Mathf.Cos(startingAngle),cameraObject.position.y, cameraObject.position.z / Mathf.Sin(startingAngle));
+        maxOffset = new Vector3(cameraObject.position.x / Mathf.Cos(startingAngle),cameraObject.position.y, cameraObject.position.z / Mathf.Sin(startingAngle));
         
-        //result is time that takes to rotate to this angle
-        timeForRotation = startingAngle * rotationPeriod / 2 / Mathf.PI;
+        //result is time that takes to rotate to starting angle
+        timeForRotationSinusFunc = startingAngle * rotationPeriod / 2 / Mathf.PI;
     }
 }

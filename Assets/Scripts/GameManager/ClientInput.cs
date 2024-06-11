@@ -1,12 +1,17 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class ClientInput : MonoBehaviour
 {
     [SerializeField]
     private InputEvents inputEvents;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
+    {
+        Assert.IsNotNull(inputEvents, "The inputEvents is null");
+    }
+
+    private void Update()
     {
         inputEvents.horizontalInput = Input.GetAxisRaw("Horizontal");
         inputEvents.verticalInput = Input.GetAxisRaw("Vertical");

@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Lukas.MyClass;
 using UnityEngine;
 
-public class MouseTracker : Singelton<MouseTracker>
+public class MouseTracker : Singleton<MouseTracker>
 {
     [SerializeField] private Camera mainCamera;
 
@@ -12,7 +9,7 @@ public class MouseTracker : Singelton<MouseTracker>
     {
         if (mainCamera == null)
         {
-            mainCamera = Camera.main;
+            mainCamera = Camera.main; 
         }
     }
 

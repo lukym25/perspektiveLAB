@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: name
       value: Dodger
       objectReference: {fileID: 0}
+    - target: {fileID: -4851523992078832842, guid: db3581342c9065c4394b8958e5246a32,
+        type: 3}
+      propertyPath: nameOfEnemy
+      value: Dodger
+      objectReference: {fileID: 0}
     - target: {fileID: 787653352095291098, guid: db3581342c9065c4394b8958e5246a32,
         type: 3}
       propertyPath: attackSpeed
@@ -22,6 +27,11 @@ PrefabInstance:
         type: 3}
       propertyPath: attackRadius
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 787653352095291098, guid: db3581342c9065c4394b8958e5246a32,
+        type: 3}
+      propertyPath: attacksPerSecond
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 787653352095291098, guid: db3581342c9065c4394b8958e5246a32,
         type: 3}
@@ -92,7 +102,7 @@ PrefabInstance:
     - target: {fileID: 8861066221537844947, guid: db3581342c9065c4394b8958e5246a32,
         type: 3}
       propertyPath: m_Constraints
-      value: 80
+      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1378382538835596024, guid: db3581342c9065c4394b8958e5246a32, type: 3}
@@ -125,8 +135,8 @@ MonoBehaviour:
   followedObject: {fileID: 0}
   rigidbodyComponent: {fileID: 5421648932857917862}
   movementSpeed: 10
-  speedOnYAxis: 2
-  hieghtOffset: 2
+  movementSpeedOnYAxis: 10
+  heightMaxOffset: 1
 --- !u!54 &5421648932857917862 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 8861066221537844947, guid: db3581342c9065c4394b8958e5246a32,

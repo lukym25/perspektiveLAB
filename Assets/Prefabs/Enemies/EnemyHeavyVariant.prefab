@@ -18,6 +18,11 @@ PrefabInstance:
       propertyPath: maxHp
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: -4851523992078832842, guid: db3581342c9065c4394b8958e5246a32,
+        type: 3}
+      propertyPath: nameOfEnemy
+      value: HeavyEnemy
+      objectReference: {fileID: 0}
     - target: {fileID: 787653352095291098, guid: db3581342c9065c4394b8958e5246a32,
         type: 3}
       propertyPath: attackSpeed
@@ -27,6 +32,11 @@ PrefabInstance:
         type: 3}
       propertyPath: attackRadius
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 787653352095291098, guid: db3581342c9065c4394b8958e5246a32,
+        type: 3}
+      propertyPath: attacksPerSecond
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 787653352095291098, guid: db3581342c9065c4394b8958e5246a32,
         type: 3}

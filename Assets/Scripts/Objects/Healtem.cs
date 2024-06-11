@@ -1,13 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.Assertions;
 using UnityEngine;
 
 public class HealItem : MonoBehaviour
 {
-    public float healAmount;
-    [SerializeField] 
-    private LayerMask targetLayer;
+    [SerializeField] private float healAmount;
+    [SerializeField] private LayerMask targetLayer;
+
+    private void Awake()
+    {
+        Assert.IsTrue(healAmount >= 0, "The healAmount is negative");
+    }
 
     private void OnTriggerEnter(Collider collider)
     {
@@ -17,6 +19,8 @@ public class HealItem : MonoBehaviour
         if (colliderObject.layer == (int)layerValue)
         {
             colliderObject.GetComponent<HpSystem>().Heal(healAmount);
+
+            InstancesManager.Instance.objects.Remove(transform);
             
             Destroy(gameObject);
         }

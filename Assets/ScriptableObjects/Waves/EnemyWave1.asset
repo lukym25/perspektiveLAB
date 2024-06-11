@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: EnemyWave1
   m_EditorClassIdentifier: 
   wave:
-  - EnemyObject: {fileID: 1392346211691342383, guid: db3581342c9065c4394b8958e5246a32,
+  - enemyObject: {fileID: 1392346211691342383, guid: db3581342c9065c4394b8958e5246a32,
       type: 3}
-    NumberOfEnemies: 5
-    IntervalTime: 0.5
-  - EnemyObject: {fileID: 1063733676296366919, guid: 84703ac252cd0ad4caed1d294883673a,
+    numberOfEnemies: 5
+    intervalTime: 1
+  - enemyObject: {fileID: 1063733676296366919, guid: 84703ac252cd0ad4caed1d294883673a,
       type: 3}
-    NumberOfEnemies: 1
-    IntervalTime: 6
-  - EnemyObject: {fileID: 2492706925005751642, guid: f2d23b686f022a5429d624423f8c3c5c,
+    numberOfEnemies: 1
+    intervalTime: 3
+  - enemyObject: {fileID: 2492706925005751642, guid: f2d23b686f022a5429d624423f8c3c5c,
       type: 3}
-    NumberOfEnemies: 3
-    IntervalTime: 1
+    numberOfEnemies: 3
+    intervalTime: 0.25

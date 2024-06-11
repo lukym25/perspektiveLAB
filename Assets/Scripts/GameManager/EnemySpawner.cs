@@ -1,19 +1,28 @@
 using UnityEngine;
+using Random = UnityEngine.Random;
+using UnityEngine.Assertions;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public EnemyWave[] enemyWaves;
-    private int currentWave = 0;
+    [SerializeField] private EnemyWave[] enemyWaves;
+    private int currentWave;
     private int currentSpawn;
     private int currentEnemy;
 
     [SerializeField] private Transform[] spawnPoints;
 
     [SerializeField] private float warmUpTime;
-
     [SerializeField] private float waitAfterWave;
 
     private Timer waitingToSpawnTimer;
+
+    private void Awake()
+    {
+        Assert.IsNotNull(enemyWaves, "The enemyWaves is null");
+        Assert.IsNotNull(spawnPoints, "The spawnPoints is null");
+        Assert.IsTrue(warmUpTime >= 0, "The warmUpTime is negative");
+        Assert.IsTrue(waitAfterWave >= 0, "The waitAfterWave is negative");
+    }
 
     private void Update()
     {
@@ -33,6 +42,7 @@ public class EnemySpawner : MonoBehaviour
     {
         waitingToSpawnTimer.OnCompletionEvent -= EndWarmUp;
         
+        currentWave = 0;
         currentSpawn = 0;
         currentEnemy = 0;
         waitingToSpawnTimer.OnCompletionEvent += SpawnEnemy;
@@ -51,13 +61,13 @@ public class EnemySpawner : MonoBehaviour
         var thisWave = enemyWaves[currentWave].wave;
         
         //If it is something to spawn, spawn it
-        if (thisWave[currentSpawn].EnemyObject != null) 
+        if (thisWave[currentSpawn].enemyObject != null) 
         {
             InstantiateEnemyObject();
         }
         
         //Add time after spawning
-        waitingToSpawnTimer.RemainingTime = thisWave[currentSpawn].IntervalTime;
+        waitingToSpawnTimer.RemainingTime = thisWave[currentSpawn].intervalTime;
         
         //check if it is last Enemy/Spawn and go to next Enemy/Spawn
         GoToNextEnemy(thisWave);
@@ -65,9 +75,9 @@ public class EnemySpawner : MonoBehaviour
     
     private void InstantiateEnemyObject()
     {
-        var enemyObject = enemyWaves[currentWave].wave[currentSpawn].EnemyObject;
-        var randomSpawnPoint = Random.Range(0, spawnPoints.Length - 1);
+        var enemyObject = enemyWaves[currentWave].wave[currentSpawn].enemyObject;
         
+        var randomSpawnPoint = Random.Range(0, spawnPoints.Length - 1);
         Vector3 spawnPosition = new Vector3(spawnPoints[randomSpawnPoint].position.x, 9, spawnPoints[randomSpawnPoint].position.z);
         
         var newEnemy = Instantiate(enemyObject, spawnPosition, enemyObject.transform.rotation);
@@ -78,7 +88,7 @@ public class EnemySpawner : MonoBehaviour
     private void GoToNextEnemy(EnemySpawn[] thisWave)
     {
         currentEnemy++;
-        if (currentEnemy >= thisWave[currentSpawn].NumberOfEnemies)
+        if (currentEnemy >= thisWave[currentSpawn].numberOfEnemies)
         {
             currentEnemy = 0;
             currentSpawn++;
@@ -103,7 +113,6 @@ public class EnemySpawner : MonoBehaviour
     {
         if(waitingToSpawnTimer == null) {return;}
         
-        currentWave = 0;
         waitingToSpawnTimer.OnCompletionEvent -= SpawnEnemy;
         waitingToSpawnTimer = null;
     }
