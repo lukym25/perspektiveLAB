@@ -23,14 +23,7 @@ public class PlayerMovement : MonoBehaviour
         Assert.IsTrue(jumpForce >= 0, "The jumpForce is negative");
     }
 
-    private void FixedUpdate()
-    {
-        if(gameInfo.gameState != GameStateEnum.InGame) {return;}
-        
-        MovePlayer();
-    }
-
-    private void MovePlayer()
+    public void MovePlayer()
     {
         //camera is slightly tilted on y-axis, so the move direction must be recalculated
         var rotationInRad = gameInfo.cameraRotation * Mathf.Deg2Rad;
@@ -42,9 +35,8 @@ public class PlayerMovement : MonoBehaviour
         rigidbodyComponent.velocity = new Vector3(moveVelocity.x, rigidbodyComponent.velocity.y, moveVelocity.z);
     }
 
-    private void PlayerJump()
+    public void PlayerJump()
     {
-        if(gameInfo.gameState != GameStateEnum.InGame) {return;}
         if(!IsOnGround()) { return;}
         
         rigidbodyComponent.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -56,15 +48,5 @@ public class PlayerMovement : MonoBehaviour
         var numberOfCollisions = Physics.OverlapBoxNonAlloc(groundHitbox.position, groundHitbox.localScale, results, Quaternion.identity, groundLayer.value);
 
         return numberOfCollisions > 0;
-    }
-
-    private void OnEnable()
-    {
-        inputEvents.SpacePressed += PlayerJump;
-    }
-
-    private void OnDisable()
-    {
-        inputEvents.SpacePressed -= PlayerJump;
     }
 }

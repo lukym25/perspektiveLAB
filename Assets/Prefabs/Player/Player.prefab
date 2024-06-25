@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2615666888462903181}
   - component: {fileID: 3429760295425744177}
   - component: {fileID: 7503897418960394551}
+  - component: {fileID: -260735236022786959}
   - component: {fileID: 1210488194687266084}
   - component: {fileID: 5028048280317561121}
   - component: {fileID: -4073023703254971532}
@@ -139,6 +140,21 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &-260735236022786959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7078642129161325137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7139dc1e838f41c448d80ed8643f166c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAttack: {fileID: 5028048280317561121}
+  playerMovement: {fileID: 1210488194687266084}
+  playerHp: {fileID: -4073023703254971532}
 --- !u!114 &1210488194687266084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +193,6 @@ MonoBehaviour:
     type: 3}
   attacksPerSecond: 1
   inputEvents: {fileID: 11400000, guid: 02eb59084f34e594791e992d10ddd54b, type: 2}
-  gameInfo: {fileID: 11400000, guid: 4b00ed97346e3f3488f1814f083ac28c, type: 2}
   autoAimRange: 50
   enemyLayer:
     serializedVersion: 2
@@ -200,8 +215,6 @@ MonoBehaviour:
     type: 3}
   deathParticle: {fileID: 3085353264447628986, guid: 2115a2bb309d2fa4a910f4c2e50f250c,
     type: 3}
-  hpSlider: {fileID: 0}
-  hpText: {fileID: 0}
 --- !u!1 &8135316546577489665
 GameObject:
   m_ObjectHideFlags: 0

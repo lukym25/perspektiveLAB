@@ -4,7 +4,6 @@ using UnityEngine.Assertions;
 public class PlayerAttack : Attack
 {
     [SerializeField] private InputEvents inputEvents;
-    [SerializeField] private GameInfo gameInfo;
     
     [SerializeField] private float autoAimRange;
     [SerializeField] private LayerMask enemyLayer;
@@ -14,7 +13,6 @@ public class PlayerAttack : Attack
     protected override void Awake()
     {
         Assert.IsNotNull(inputEvents, "The inputEvents is null");
-        Assert.IsNotNull(gameInfo, "The gameInfo is null");
         Assert.IsTrue(autoAimRange >= 0, "The autoAimRange is negative");
         
         base.Awake();
@@ -22,10 +20,8 @@ public class PlayerAttack : Attack
         autoAim = true;
     }
 
-    private void FixedUpdate()
+    public void Attack()
     {
-        if(gameInfo.gameState != GameStateEnum.InGame) {return;}
-        
         if (autoAim)
         {
             AutoAttack();

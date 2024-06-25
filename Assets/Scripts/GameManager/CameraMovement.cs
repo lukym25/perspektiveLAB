@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    private Transform followedObject;
+    [SerializeField] private Transform followedObject;
     [SerializeField] private Transform cameraObject;
     [SerializeField] private GameInfo gameInfo;
 
@@ -29,28 +29,16 @@ public class CameraMovement : MonoBehaviour
         followedObject = InstancesManager.Instance.player;
     }
 
-    private void Update()
-    {
-        if (gameInfo.gameState == GameStateEnum.InGame)
-        {
-            MoveCameraInGame();
-        }
-        else
-        {
-            timeForRotationSinusFunc += Time.deltaTime;
-            MoveCameraInMenu();
-        }
-    }
-
-    private void MoveCameraInGame()
+    public void MoveCameraInGame()
     {
         if (followedObject == null) { return; }
-
+        
         cameraObject.position = followedObject.transform.position + currentOffset;
     }
 
-    private void MoveCameraInMenu()
+    public void MoveCameraInMenu()
     {
+        timeForRotationSinusFunc += Time.deltaTime;
         /*absoluteOffset is max offset witch is multiplied by sin and cos by value between (-1, 1)
          Time.deltaTime * 2 * Mathf.PI make is rotate 360 deg per sec
          / rotationPeriod make it rotate 1 cycle per rotationPeriod

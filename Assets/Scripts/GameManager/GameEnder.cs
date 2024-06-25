@@ -1,32 +1,27 @@
 using UnityEngine.Assertions;
 using Lukas.MyClass;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class GameEnder : Singleton<GameEnder>
 {
     [SerializeField] private MenuManager menuManager;
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private GameObject killCounter;
+    [SerializeField] private GameStateManager gameStateManager;
         
     [SerializeField] private CameraMovement cameraMovement;
-    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform playerSpawnPoint;
-    
-    [SerializeField] private Slider hpSliderStored;
-    [SerializeField] private TextMeshProUGUI hpTextStored;
 
     protected override void Awake()
     {
         Assert.IsNotNull(menuManager, "The menuManager is null");
         Assert.IsNotNull(enemySpawner, "The enemySpawner is null");
         Assert.IsNotNull(killCounter, "The killCounter is null");
+        Assert.IsNotNull(gameStateManager, "The gameStateManager is null");
         Assert.IsNotNull(cameraMovement, "The cameraMovement is null");
-        Assert.IsNotNull(player, "The player is null");
+        Assert.IsNotNull(playerPrefab, "The playerPrefab is null");
         Assert.IsNotNull(playerSpawnPoint, "The playerSpawnPoint is null");
-        Assert.IsNotNull(hpSliderStored, "The hpSliderStored is null");
-        Assert.IsNotNull(hpTextStored, "The hpTextStored is null");
         
         base.Awake();
     }
@@ -65,14 +60,11 @@ public class GameEnder : Singleton<GameEnder>
 
     private void SpawnNewPlayer()
     {
-        var newPlayer = Instantiate(player, playerSpawnPoint.position, playerSpawnPoint.rotation);
+        var newPlayer = Instantiate(playerPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation);
         
+        gameStateManager.AddNewPlayer(newPlayer.GetComponent<PlayerMain>());
         cameraMovement.ChangeFollowedObject(newPlayer.transform);
         InstancesManager.Instance.player = newPlayer.transform;
-
-        var hpScript = newPlayer.GetComponent<PlayerHp>();
-        hpScript.hpSlider = hpSliderStored;
-        hpScript.hpText = hpTextStored;
     }
 
     private void ChangeToMainMenu()
