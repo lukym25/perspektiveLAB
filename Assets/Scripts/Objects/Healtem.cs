@@ -20,9 +20,14 @@ public class HealItem : MonoBehaviour
         {
             colliderObject.GetComponent<HpSystem>().Heal(healAmount);
 
-            InstancesManager.Instance.objects.Remove(transform);
-            
-            Destroy(gameObject);
+            DestroyHealItem();
         }
+    }
+
+    private void DestroyHealItem()
+    {
+        InstancesManager.Instance.objects.Remove(transform);
+            
+        Destroy(gameObject);
     }
 }

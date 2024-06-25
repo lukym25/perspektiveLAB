@@ -39,6 +39,7 @@ public class Attack : MonoBehaviour
         var positionOfNewProjectile = transform.position + shootingDirection;
         
         var newProjectile = Instantiate(projectilePrefab, positionOfNewProjectile, projectilePrefab.transform.rotation);
+        InstancesManager.Instance.objects.Add(newProjectile.transform);
         
         var projectileBehaviour = newProjectile.GetComponent<ProjectileBehaviour>();
         var rigidBodyOfProjectile = newProjectile.GetComponent<Rigidbody>();

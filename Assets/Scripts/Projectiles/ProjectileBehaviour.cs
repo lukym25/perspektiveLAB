@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -24,7 +25,7 @@ public class ProjectileBehaviour : MonoBehaviour
         aliveTime += Time.deltaTime;
         if (aliveTime >= lifeTime)
         {
-            Destroy(gameObject);
+            DestroyProjectiole();
         }
     }
 
@@ -37,6 +38,13 @@ public class ProjectileBehaviour : MonoBehaviour
             var hpSystem = collision.gameObject.GetComponent<HpSystem>();
             hpSystem.Damage(projectileDamage);
         }
+
+        DestroyProjectiole();
+    }
+
+    private void DestroyProjectiole()
+    {
+        InstancesManager.Instance.objects.Remove(transform);
         
         Destroy(gameObject);
     }
