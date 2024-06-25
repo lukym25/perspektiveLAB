@@ -21,7 +21,10 @@ public class Attack : MonoBehaviour
     
     protected void Shoot()
     {
-        if (targetObject == null) {return;}
+        if (targetObject == null)
+        {
+            return;
+        }
 
         ShootOnTargetPosition(targetObject.position);
     }
@@ -47,24 +50,10 @@ public class Attack : MonoBehaviour
         var newProjectile = Instantiate(projectilePrefab, positionOfNewProjectile, projectilePrefab.transform.rotation);
         InstancesManager.Instance.objects.Add(newProjectile.transform);
         
-        AddSpeedToProjectile(newProjectile, shootingDirection);
-    }
-    
-    private void AddSpeedToProjectile(GameObject newProjectile, Vector3 shootingDirection)
-    {
         var projectileBehaviour = newProjectile.GetComponent<ProjectileBehaviour>();
-        if (projectileBehaviour == null)
-        {
-            return;
-        }
+        Assert.IsNotNull(projectileBehaviour, "The ProjectileBehaviour is null");
         
-        var rigidBodyOfProjectile = newProjectile.GetComponent<Rigidbody>();
-        if (rigidBodyOfProjectile == null)
-        {
-            return;
-        }
-        
-        rigidBodyOfProjectile.velocity = shootingDirection * projectileBehaviour.projectileSpeed;
+        projectileBehaviour.AddVelocity(shootingDirection);
     }
 
     private IEnumerator AttackCooldown(float waitTime)

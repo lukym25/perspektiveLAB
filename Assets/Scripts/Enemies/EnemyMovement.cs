@@ -3,10 +3,10 @@ using UnityEngine.Assertions;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public Transform followedObject;
     [SerializeField] protected Rigidbody rigidbodyComponent;
-    
     [SerializeField] protected float movementSpeed;
+    
+    protected Transform FollowedObject;
 
     protected virtual void Awake()
     {
@@ -16,7 +16,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
-        followedObject = InstancesManager.Instance.player;
+        FollowedObject = InstancesManager.Instance.player;
     }
 
     private void FixedUpdate()
@@ -26,9 +26,14 @@ public class EnemyMovement : MonoBehaviour
 
     protected virtual void Move()
     {
-        var moveDirection = (followedObject.position - transform.position).normalized;
+        var moveDirection = (FollowedObject.position - transform.position).normalized;
         var moveVelocity = moveDirection * movementSpeed;
         
         rigidbodyComponent.velocity = new Vector3(moveVelocity.x, rigidbodyComponent.velocity.y, moveVelocity.z);
+    }
+
+    public void ChangeFollowedObject(Transform newFollowedObject)
+    {
+        FollowedObject = newFollowedObject;
     }
 }

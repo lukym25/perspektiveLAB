@@ -3,8 +3,7 @@ using UnityEngine.Assertions;
 
 public class ClientInput : MonoBehaviour
 {
-    [SerializeField]
-    private InputEvents inputEvents;
+    [SerializeField] private InputEvents inputEvents;
 
     private void Awake()
     {

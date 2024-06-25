@@ -4,9 +4,12 @@ using UnityEngine.Assertions;
 public class ProjectileBehaviour : MonoBehaviour
 {
     [SerializeField] private float projectileDamage;
-    public float projectileSpeed;
-    [SerializeField] private LayerMask targetLayer;
+    [SerializeField] private float projectileSpeed;
     [SerializeField] private float lifeTime;
+
+    [SerializeField] private LayerMask targetLayer;
+    [SerializeField] private Rigidbody rigidbodyComponent;
+    
     private float aliveTime;
 
     private void Awake()
@@ -39,6 +42,11 @@ public class ProjectileBehaviour : MonoBehaviour
         }
 
         DestroyProjectile();
+    }
+
+    public void AddVelocity(Vector3 direction)
+    {
+        rigidbodyComponent.velocity = direction * projectileSpeed;
     }
 
     private void DestroyProjectile()

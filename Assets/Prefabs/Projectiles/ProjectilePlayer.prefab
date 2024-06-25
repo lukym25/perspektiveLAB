@@ -148,7 +148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileDamage: 10
   projectileSpeed: 100
+  lifeTime: 5
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
-  lifeTime: 5
+  rigidbodyComponent: {fileID: 5449928405920962203}

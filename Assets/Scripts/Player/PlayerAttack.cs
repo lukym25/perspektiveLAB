@@ -57,7 +57,7 @@ public class PlayerAttack : Attack
         
         //go through all enemies found and decide which is closest 
         Transform closestEnemy = null;
-        float distanceToClosestEnemy = autoAimRange + 1;
+        var distanceToClosestEnemy = autoAimRange + 1;
         
         foreach (var enemyCollider in collidersFound )
         {
