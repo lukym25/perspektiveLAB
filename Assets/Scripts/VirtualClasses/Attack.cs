@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -8,20 +9,14 @@ public class Attack : MonoBehaviour
     
     [SerializeField] private float attacksPerSecond;
 
-    private Timer attackCooldownTimer;
+    private bool canAttack;
 
     protected virtual void Awake()
     {
         Assert.IsNotNull(projectilePrefab, "The projectilePrefab is null");
         Assert.IsTrue(attacksPerSecond >= 0, "The attacksPerSecond is negative");
-        //targetObject can be null
-        
-        attackCooldownTimer = new Timer(0);
-    }
 
-    private void Update()
-    {
-        attackCooldownTimer.CountDown();
+        canAttack = true;
     }
     
     protected void Shoot()
@@ -33,22 +28,51 @@ public class Attack : MonoBehaviour
     
     protected void ShootOnTargetPosition(Vector3 targetPosition)
     {
-        if(attackCooldownTimer.RemainingTime > 0) {return;}
-        
+        if (!canAttack)
+        {
+            return;
+        }
+
+        SpawnProjectile(targetPosition);
+
+        var attackCooldown = 1 / attacksPerSecond;
+        StartCoroutine(AttackCooldown(attackCooldown));
+    }
+
+    private void SpawnProjectile(Vector3 targetPosition)
+    {
         var shootingDirection = (targetPosition - transform.position).normalized;
         var positionOfNewProjectile = transform.position + shootingDirection;
         
         var newProjectile = Instantiate(projectilePrefab, positionOfNewProjectile, projectilePrefab.transform.rotation);
         InstancesManager.Instance.objects.Add(newProjectile.transform);
         
+        AddSpeedToProjectile(newProjectile, shootingDirection);
+    }
+    
+    private void AddSpeedToProjectile(GameObject newProjectile, Vector3 shootingDirection)
+    {
         var projectileBehaviour = newProjectile.GetComponent<ProjectileBehaviour>();
-        var rigidBodyOfProjectile = newProjectile.GetComponent<Rigidbody>();
+        if (projectileBehaviour == null)
+        {
+            return;
+        }
         
-        if(projectileBehaviour == null) {return;}
-        if(rigidBodyOfProjectile == null) {return;}
+        var rigidBodyOfProjectile = newProjectile.GetComponent<Rigidbody>();
+        if (rigidBodyOfProjectile == null)
+        {
+            return;
+        }
         
         rigidBodyOfProjectile.velocity = shootingDirection * projectileBehaviour.projectileSpeed;
+    }
 
-        attackCooldownTimer.RemainingTime = 1 / attacksPerSecond;
+    private IEnumerator AttackCooldown(float waitTime)
+    {
+        canAttack = false;
+        
+        yield return new WaitForSeconds(waitTime);
+
+        canAttack = true;
     }
 }
