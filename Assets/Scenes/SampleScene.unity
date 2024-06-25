@@ -10579,6 +10579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2068082615}
+  - component: {fileID: 2068082624}
   - component: {fileID: 2068082614}
   - component: {fileID: 2068082613}
   - component: {fileID: 2068082622}
@@ -10587,6 +10588,7 @@ GameObject:
   - component: {fileID: 2068082619}
   - component: {fileID: 2068082620}
   - component: {fileID: 2068082621}
+  - component: {fileID: 2068082623}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -10606,6 +10608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd785377c23b8a14793220937366a4a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followedObject: {fileID: 2141707435}
   cameraObject: {fileID: 330585546}
   gameInfo: {fileID: 11400000, guid: 4b00ed97346e3f3488f1814f083ac28c, type: 2}
   rotationPeriod: 20
@@ -10679,6 +10682,7 @@ MonoBehaviour:
   mainMenu: {fileID: 419335419}
   inGameUI: {fileID: 1176793297}
   enemySpawner: {fileID: 2068082617}
+  gameStateManager: {fileID: 2068082624}
 --- !u!114 &2068082619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10694,11 +10698,11 @@ MonoBehaviour:
   menuManager: {fileID: 2068082618}
   enemySpawner: {fileID: 2068082617}
   killCounter: {fileID: 2068082612}
+  gameStateManager: {fileID: 2068082624}
   cameraMovement: {fileID: 2068082613}
-  player: {fileID: 7078642129161325137, guid: b9b41dcd2bc031840a27cd05920d8c2e, type: 3}
+  playerPrefab: {fileID: 7078642129161325137, guid: b9b41dcd2bc031840a27cd05920d8c2e,
+    type: 3}
   playerSpawnPoint: {fileID: 1802192942}
-  hpSliderStored: {fileID: 1936939344}
-  hpTextStored: {fileID: 1600198980}
 --- !u!114 &2068082620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10740,6 +10744,36 @@ MonoBehaviour:
   player: {fileID: 2141707435}
   enemies: []
   objects: []
+--- !u!114 &2068082623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068082612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1dae65c39f6814a95f46dd443ad5fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpSlider: {fileID: 1936939344}
+  hpText: {fileID: 1600198980}
+--- !u!114 &2068082624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068082612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28af051822de589488dfc6cec5355538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMain: {fileID: 2141707443}
+  cameraMovement: {fileID: 2068082613}
+  inputEvents: {fileID: 11400000, guid: 02eb59084f34e594791e992d10ddd54b, type: 2}
+  gameInfo: {fileID: 11400000, guid: 4b00ed97346e3f3488f1814f083ac28c, type: 2}
 --- !u!1 &2087379046
 GameObject:
   m_ObjectHideFlags: 0
@@ -10851,6 +10885,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 29849858}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2141707443 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -260735236022786959, guid: b9b41dcd2bc031840a27cd05920d8c2e,
+    type: 3}
+  m_PrefabInstance: {fileID: 29849858}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7139dc1e838f41c448d80ed8643f166c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -10,8 +10,10 @@ public class InstancesManager : Singleton<InstancesManager>
     public List<Transform> enemies;
     public List<Transform> objects;
 
-    private void Awake()
+    protected override void Awake()
     {
         Assert.IsNotNull(player, "The player is null");
+        
+        base.Awake();
     }
 }

@@ -4,9 +4,12 @@ using UnityEngine.Assertions;
 public class ProjectileBehaviour : MonoBehaviour
 {
     [SerializeField] private float projectileDamage;
-    public float projectileSpeed;
-    [SerializeField] private LayerMask targetLayer;
+    [SerializeField] private float projectileSpeed;
     [SerializeField] private float lifeTime;
+
+    [SerializeField] private LayerMask targetLayer;
+    [SerializeField] private Rigidbody rigidbodyComponent;
+    
     private float aliveTime;
 
     private void Awake()
@@ -24,19 +27,31 @@ public class ProjectileBehaviour : MonoBehaviour
         aliveTime += Time.deltaTime;
         if (aliveTime >= lifeTime)
         {
-            Destroy(gameObject);
+            DestroyProjectile();
         }
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        var layerValue = Mathf.Log(targetLayer.value, 2);
+        var collisionLayerBit = 1 << collision.gameObject.layer;
         
-        if (collision.gameObject.layer == (int)layerValue)
+        if (collisionLayerBit == targetLayer.value)
         {
             var hpSystem = collision.gameObject.GetComponent<HpSystem>();
             hpSystem.Damage(projectileDamage);
         }
+
+        DestroyProjectile();
+    }
+
+    public void AddVelocity(Vector3 direction)
+    {
+        rigidbodyComponent.velocity = direction * projectileSpeed;
+    }
+
+    private void DestroyProjectile()
+    {
+        InstancesManager.Instance.objects.Remove(transform);
         
         Destroy(gameObject);
     }

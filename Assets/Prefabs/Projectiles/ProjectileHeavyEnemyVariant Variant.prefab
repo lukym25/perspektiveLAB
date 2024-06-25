@@ -26,7 +26,7 @@ PrefabInstance:
     - target: {fileID: 3669179403988033037, guid: 85d3977d9640dd544b9e25b8ee31468b,
         type: 3}
       propertyPath: m_Name
-      value: ProjectilHeavyEnemyVariant Variant
+      value: ProjectileHeavyEnemyVariant Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4093039239290532798, guid: 85d3977d9640dd544b9e25b8ee31468b,
         type: 3}

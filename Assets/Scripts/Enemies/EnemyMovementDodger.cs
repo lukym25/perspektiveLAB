@@ -25,7 +25,7 @@ public class EnemyMovementDodger : EnemyMovement
 
     protected override void Move()
     {
-        var moveDirection = (followedObject.position - transform.position).normalized;
+        var moveDirection = (FollowedObject.position - transform.position).normalized;
         var moveVelocity = moveDirection * movementSpeed;
         
         /*

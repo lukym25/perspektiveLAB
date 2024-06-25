@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 
 public class EnemyHp : HpSystem
 {
-    [SerializeField] string nameOfEnemy;
+    [SerializeField] private string nameOfEnemy;
     [SerializeField] private GameObject healItemPrefab;
 
     protected override void Awake()

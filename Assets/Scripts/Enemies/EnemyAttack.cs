@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -10,7 +11,10 @@ public class EnemyAttack : Attack
         Assert.IsTrue(attackRadius >= 0, "The attackRadius is negative");
         
         base.Awake();
-        
+    }
+
+    private void Start()
+    {
         targetObject = InstancesManager.Instance.player;
     }
 

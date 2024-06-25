@@ -4,17 +4,15 @@ using UnityEngine.Assertions;
 public class PlayerAttack : Attack
 {
     [SerializeField] private InputEvents inputEvents;
-    [SerializeField] private GameInfo gameInfo;
     
     [SerializeField] private float autoAimRange;
     [SerializeField] private LayerMask enemyLayer;
 
     private bool autoAim;
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
         Assert.IsNotNull(inputEvents, "The inputEvents is null");
-        Assert.IsNotNull(gameInfo, "The gameInfo is null");
         Assert.IsTrue(autoAimRange >= 0, "The autoAimRange is negative");
         
         base.Awake();
@@ -22,10 +20,8 @@ public class PlayerAttack : Attack
         autoAim = true;
     }
 
-    private void FixedUpdate()
+    public void Attack()
     {
-        if(gameInfo.gameState != GameStateEnum.InGame) {return;}
-        
         if (autoAim)
         {
             AutoAttack();
@@ -49,20 +45,18 @@ public class PlayerAttack : Attack
     //can return null
     private Transform FindClosestEnemy()
     {
-        //cast Sphere and Find all enemies in range; max found 10
-        Collider[] collidersFound = new Collider[10];
-        var numberOfCollisions = Physics.OverlapSphereNonAlloc(transform.position, autoAimRange, collidersFound, enemyLayer.value);
+        var collidersFound = Physics.OverlapSphere(transform.position, autoAimRange, enemyLayer.value);
+
+        if (collidersFound.Length == 0)
+        {
+            return null;
+        }
         
-        if(numberOfCollisions == 0) {return null;}
-        
-        //go through all enemies found and decide which is closest 
         Transform closestEnemy = null;
-        float distanceToClosestEnemy = autoAimRange + 1;
+        var distanceToClosestEnemy = autoAimRange;
         
         foreach (var enemyCollider in collidersFound )
         {
-            if(enemyCollider == null) {continue;}
-            
             var distanceToEnemy = Vector3.Distance(transform.position, enemyCollider.gameObject.transform.position);
             if (distanceToEnemy < distanceToClosestEnemy)
             {

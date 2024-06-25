@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.Assertions;
@@ -14,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float warmUpTime;
     [SerializeField] private float waitAfterWave;
 
-    private Timer waitingToSpawnTimer;
+    private Coroutine waitToSpawnEnemyCoroutine;
 
     private void Awake()
     {
@@ -23,29 +24,24 @@ public class EnemySpawner : MonoBehaviour
         Assert.IsTrue(warmUpTime >= 0, "The warmUpTime is negative");
         Assert.IsTrue(waitAfterWave >= 0, "The waitAfterWave is negative");
     }
-
-    private void Update()
-    {
-        if (waitingToSpawnTimer != null)
-        {
-            waitingToSpawnTimer.CountDown();
-        }
-    }
     
     public void StartSpawning()
     {
-        waitingToSpawnTimer = new Timer(warmUpTime);
-        waitingToSpawnTimer.OnCompletionEvent += EndWarmUp;
+        StartCoroutine(WarmUp());
+    }
+
+    private IEnumerator WarmUp()
+    {
+        yield return new WaitForSeconds(warmUpTime);
+
+        EndWarmUp();
     }
 
     private void EndWarmUp()
     {
-        waitingToSpawnTimer.OnCompletionEvent -= EndWarmUp;
-        
         currentWave = 0;
         currentSpawn = 0;
         currentEnemy = 0;
-        waitingToSpawnTimer.OnCompletionEvent += SpawnEnemy;
 
         if (enemyWaves.Length == 0)
         {
@@ -60,17 +56,15 @@ public class EnemySpawner : MonoBehaviour
     {
         var thisWave = enemyWaves[currentWave].wave;
         
-        //If it is something to spawn, spawn it
         if (thisWave[currentSpawn].enemyObject != null) 
         {
             InstantiateEnemyObject();
         }
-        
-        //Add time after spawning
-        waitingToSpawnTimer.RemainingTime = thisWave[currentSpawn].intervalTime;
-        
-        //check if it is last Enemy/Spawn and go to next Enemy/Spawn
-        GoToNextEnemy(thisWave);
+
+        if (CanSpawnNextEnemy(thisWave))
+        {
+            waitToSpawnEnemyCoroutine = StartCoroutine(WaitToSpawnEnemy(thisWave[currentSpawn].intervalTime));
+        }
     }
     
     private void InstantiateEnemyObject()
@@ -85,7 +79,7 @@ public class EnemySpawner : MonoBehaviour
         InstancesManager.Instance.enemies.Add(newEnemy.transform);
     }
 
-    private void GoToNextEnemy(EnemySpawn[] thisWave)
+    private bool CanSpawnNextEnemy(EnemySpawn[] thisWave)
     {
         currentEnemy++;
         if (currentEnemy >= thisWave[currentSpawn].numberOfEnemies)
@@ -101,19 +95,29 @@ public class EnemySpawner : MonoBehaviour
                 if (currentWave >= enemyWaves.Length)
                 {
                     EndSpawning();
-                    return;
+                    return false;
                 }
                 
-                waitingToSpawnTimer.RemainingTime = waitAfterWave;
+                waitToSpawnEnemyCoroutine = StartCoroutine(WaitToSpawnEnemy(waitAfterWave));
+                return false;
             }
         }
+
+        return true;
+    }
+    
+    private IEnumerator WaitToSpawnEnemy(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        SpawnEnemy();
     }
 
     public void EndSpawning()
     {
-        if(waitingToSpawnTimer == null) {return;}
-        
-        waitingToSpawnTimer.OnCompletionEvent -= SpawnEnemy;
-        waitingToSpawnTimer = null;
+        if (waitToSpawnEnemyCoroutine != null)
+        {
+            StopCoroutine(waitToSpawnEnemyCoroutine);
+        }
     }
 }
