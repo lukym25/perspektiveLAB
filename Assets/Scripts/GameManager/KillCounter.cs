@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Text;
 using Lukas.MyClass;
 using TMPro;
 using UnityEngine.Assertions;
@@ -21,37 +23,28 @@ public class KillCounter : Singleton<KillCounter>
 
     public void EnemyDied(string name)
     {
-        foreach (var nameInKillStatistics in killStatistics.Keys)
+        if (killStatistics.ContainsKey(name))
         {
-            if (name == nameInKillStatistics)
-            {
-                killStatistics[nameInKillStatistics]++;
-                UpdateCounter();
-                
-                return;
-            }
+            killStatistics[name]++;
         }
-
-        AddNewEnemyKilled(name);
+        else
+        {
+            killStatistics.Add(name, 1);
+        }
+        
+        UpdateCounter();
     }
 
     private void UpdateCounter()
     {
-        var newTextToShow = "";
+        StringBuilder builder = new StringBuilder();
         foreach (var statName in killStatistics.Keys)
         {
-            var textToAdd = statName + ":" + killStatistics[statName] + "\n";
-            newTextToShow += textToAdd;
+            var textToAdd = String.Concat(statName, ":", killStatistics[statName], "\n");
+            builder.Append(textToAdd);
         }
 
-        killCounterUIElement.text = newTextToShow;
-    }
-
-    private void AddNewEnemyKilled(string name)
-    {
-        killStatistics.Add(name, 1);
-        
-        UpdateCounter();
+        killCounterUIElement.text = builder.ToString();
     }
 
     public void Reset()
@@ -60,7 +53,6 @@ public class KillCounter : Singleton<KillCounter>
 
         UpdateCounter();
     }
-
 
     /*
      in my case I work with events, so I think this type of check is unnecessary
@@ -98,6 +90,5 @@ public class KillCounter : Singleton<KillCounter>
         }
 
         StartCoroutine(UpdateValues());
-    }
-    */
+    }*/
 }
