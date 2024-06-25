@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
@@ -9,8 +10,9 @@ using UnityEngine.Assertions;
 public class KillCounter : Singleton<KillCounter>
 {
     [SerializeField] private TextMeshProUGUI killCounterUIElement;
-    
+
     private Dictionary<string, int> killStatistics;
+    private Dictionary<string, int> killStatisticsInUI;
 
     protected override void Awake()
     {
@@ -19,6 +21,12 @@ public class KillCounter : Singleton<KillCounter>
         base.Awake();
         
         killStatistics = new Dictionary<string, int>();
+        killStatisticsInUI = new Dictionary<string, int>(); 
+    }
+
+    private void Start()
+    {
+        StartCoroutine(UpdateValues());
     }
 
     public void EnemyDied(string name)
@@ -31,8 +39,6 @@ public class KillCounter : Singleton<KillCounter>
         {
             killStatistics.Add(name, 1);
         }
-        
-        UpdateCounter();
     }
 
     private void UpdateCounter()
@@ -50,45 +56,29 @@ public class KillCounter : Singleton<KillCounter>
     public void Reset()
     {
         killStatistics = new Dictionary<string, int>();
-
-        UpdateCounter();
     }
-
-    /*
-     in my case I work with events, so I think this type of check is unnecessary
-     values update automatically after unit dies
-     For this reason, I put code only in comments
-
-     private void Start()
-     {
-        StartCoroutine(UpdateValues());
-     }
-
 
     private IEnumerator UpdateValues()
     {
         yield return new WaitForSeconds(3f);
 
-        int i = 0;
-        foreach (var numberOfKills in killStatistics.Values)
+        foreach (var name in killStatistics.Keys)
         {
-            //get string of number from UI
-            var textUIEnement = textsForValue[i].text;
-            string[] splitArray =  textUIEnement.Split(char.Parse(":"));
-            var numberInString = splitArray[1];
-
-            //try to parse it to number
-            int numberFromUI;
-            int.TryParse(numberInString, out numberFromUI);
-
-            if (numberOfKills != numberFromUI)
+            if (killStatisticsInUI.ContainsKey(name))
             {
+                if (killStatistics[name] != killStatisticsInUI[name])
+                {
+                    killStatisticsInUI[name] = killStatistics[name]; 
+                    UpdateCounter();
+                }
+            }
+            else
+            {
+                killStatisticsInUI.Add(name, killStatistics[name]);
                 UpdateCounter();
             }
-
-            i++;
         }
 
         StartCoroutine(UpdateValues());
-    }*/
+    }
 }
