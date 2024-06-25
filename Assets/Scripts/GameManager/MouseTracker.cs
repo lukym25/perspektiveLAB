@@ -5,12 +5,14 @@ public class MouseTracker : Singleton<MouseTracker>
 {
     [SerializeField] private Camera mainCamera;
 
-    private void Awake()
+    protected override void Awake()
     {
         if (mainCamera == null)
         {
             mainCamera = Camera.main; 
         }
+        
+        base.Awake();
     }
 
     public Vector3? GetMousePosition() 

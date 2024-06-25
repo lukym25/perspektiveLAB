@@ -10,9 +10,11 @@ public class KillCounter : Singleton<KillCounter>
     
     private Dictionary<string, int> killStatistics;
 
-    private void Awake()
+    protected override void Awake()
     {
         Assert.IsNotNull(killCounterUIElement, "The killCounterUIElement is null");
+        
+        base.Awake();
         
         killStatistics = new Dictionary<string, int>();
     }

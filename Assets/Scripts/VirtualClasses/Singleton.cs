@@ -12,19 +12,23 @@ namespace Lukas.MyClass
             {
                 if (realInstance == null)
                 {
-                    T[] objects = FindObjectsOfType(typeof(T)) as T[];
-                    if (objects?.Length > 0)
-                    {
-                        realInstance = objects[0];
-                    }
-                    else
-                    {
-                        GameObject obj = new GameObject();
-                        realInstance = obj.AddComponent<T>();
-                    }
+                    GameObject obj = new GameObject();
+                    realInstance = obj.AddComponent<T>();
                 }
                 
                 return realInstance;
+            }
+        }
+
+        protected virtual void Awake()
+        {
+            if (realInstance == null)
+            {
+                realInstance = GetComponent<T>();
+            }
+            else
+            {
+                Destroy(this);
             }
         }
     }

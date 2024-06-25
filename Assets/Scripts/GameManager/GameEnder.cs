@@ -17,7 +17,7 @@ public class GameEnder : Singleton<GameEnder>
     [SerializeField] private Slider hpSliderStored;
     [SerializeField] private TextMeshProUGUI hpTextStored;
 
-    private void Awake()
+    protected override void Awake()
     {
         Assert.IsNotNull(menuManager, "The menuManager is null");
         Assert.IsNotNull(enemySpawner, "The enemySpawner is null");
@@ -27,6 +27,8 @@ public class GameEnder : Singleton<GameEnder>
         Assert.IsNotNull(playerSpawnPoint, "The playerSpawnPoint is null");
         Assert.IsNotNull(hpSliderStored, "The hpSliderStored is null");
         Assert.IsNotNull(hpTextStored, "The hpTextStored is null");
+        
+        base.Awake();
     }
 
     public void RestartGame()

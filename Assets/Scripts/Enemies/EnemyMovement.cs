@@ -10,10 +10,13 @@ public class EnemyMovement : MonoBehaviour
 
     protected virtual void Awake()
     {
-        followedObject = InstancesManager.Instance.player;
-        
         Assert.IsNotNull(rigidbodyComponent, "The rigidbodyComponent is null");
         Assert.IsTrue(movementSpeed >= 0, "The movementSpeed is not negative");
+    }
+
+    private void Start()
+    {
+        followedObject = InstancesManager.Instance.player;
     }
 
     private void FixedUpdate()

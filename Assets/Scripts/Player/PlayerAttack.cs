@@ -11,7 +11,7 @@ public class PlayerAttack : Attack
 
     private bool autoAim;
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
         Assert.IsNotNull(inputEvents, "The inputEvents is null");
         Assert.IsNotNull(gameInfo, "The gameInfo is null");
