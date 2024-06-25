@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -25,24 +24,24 @@ public class ProjectileBehaviour : MonoBehaviour
         aliveTime += Time.deltaTime;
         if (aliveTime >= lifeTime)
         {
-            DestroyProjectiole();
+            DestroyProjectile();
         }
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        var layerValue = Mathf.Log(targetLayer.value, 2);
+        var collisionLayerBit = 1 << collision.gameObject.layer;
         
-        if (collision.gameObject.layer == (int)layerValue)
+        if (collisionLayerBit == targetLayer.value)
         {
             var hpSystem = collision.gameObject.GetComponent<HpSystem>();
             hpSystem.Damage(projectileDamage);
         }
 
-        DestroyProjectiole();
+        DestroyProjectile();
     }
 
-    private void DestroyProjectiole()
+    private void DestroyProjectile()
     {
         InstancesManager.Instance.objects.Remove(transform);
         
