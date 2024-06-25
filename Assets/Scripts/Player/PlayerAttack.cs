@@ -45,20 +45,18 @@ public class PlayerAttack : Attack
     //can return null
     private Transform FindClosestEnemy()
     {
-        //cast Sphere and Find all enemies in range; max found 10
-        Collider[] collidersFound = new Collider[10];
-        var numberOfCollisions = Physics.OverlapSphereNonAlloc(transform.position, autoAimRange, collidersFound, enemyLayer.value);
+        var collidersFound = Physics.OverlapSphere(transform.position, autoAimRange, enemyLayer.value);
+
+        if (collidersFound.Length == 0)
+        {
+            return null;
+        }
         
-        if(numberOfCollisions == 0) {return null;}
-        
-        //go through all enemies found and decide which is closest 
         Transform closestEnemy = null;
-        var distanceToClosestEnemy = autoAimRange + 1;
+        var distanceToClosestEnemy = autoAimRange;
         
         foreach (var enemyCollider in collidersFound )
         {
-            if(enemyCollider == null) {continue;}
-            
             var distanceToEnemy = Vector3.Distance(transform.position, enemyCollider.gameObject.transform.position);
             if (distanceToEnemy < distanceToClosestEnemy)
             {

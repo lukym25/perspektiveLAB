@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsOnGround()
     {
-        Collider[] results = new Collider[1];
+        var results = new Collider[1];
         var numberOfCollisions = Physics.OverlapBoxNonAlloc(groundHitbox.position, groundHitbox.localScale, results, Quaternion.identity, groundLayer.value);
 
         return numberOfCollisions > 0;
@@ -54,7 +54,5 @@ public class PlayerMovement : MonoBehaviour
         var rotationInRad = gameInfo.cameraRotation * Mathf.Deg2Rad;
         moveVectorX = new Vector2(Mathf.Sin(rotationInRad), Mathf.Cos(rotationInRad));
         moveVectorZ = new Vector2(Mathf.Cos(rotationInRad), -Mathf.Sin(rotationInRad));
-
-        Debug.Log(moveVectorX + ";" + moveVectorZ);
     }
 }
