@@ -20,4 +20,9 @@ public class PlayerMain : MonoBehaviour
     {
         playerMovement.PlayerJump();
     }
+
+    public void GameStarted()
+    {
+        playerMovement.CalculateMoveVectors();
+    }
 }

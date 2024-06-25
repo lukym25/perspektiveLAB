@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject inGameUI;
     [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private GameStateManager gameStateManager;
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class MenuManager : MonoBehaviour
         inGameUI.SetActive(true);
         
         enemySpawner.StartSpawning();
+        gameStateManager.ChangeToGameMode();
     }
 
     public void GoToMainMenu()

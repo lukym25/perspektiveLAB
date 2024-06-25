@@ -41,6 +41,11 @@ public class GameStateManager : MonoBehaviour
         
         playerMain.Jump();
     }
+
+    public void ChangeToGameMode()
+    {
+        playerMain.GameStarted();
+    }
     
     private void OnEnable()
     {

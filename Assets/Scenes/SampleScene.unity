@@ -10682,6 +10682,7 @@ MonoBehaviour:
   mainMenu: {fileID: 419335419}
   inGameUI: {fileID: 1176793297}
   enemySpawner: {fileID: 2068082617}
+  gameStateManager: {fileID: 2068082624}
 --- !u!114 &2068082619
 MonoBehaviour:
   m_ObjectHideFlags: 0

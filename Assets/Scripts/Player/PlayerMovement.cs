@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed;
     [SerializeField] private float jumpForce;
 
+    private Vector2 moveVectorX;
+    private Vector2 moveVectorZ;
+
     private void Awake()
     {
         Assert.IsNotNull(inputEvents, "The inputEvents is null");
@@ -25,12 +28,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void MovePlayer()
     {
-        //camera is slightly tilted on y-axis, so the move direction must be recalculated
-        var rotationInRad = gameInfo.cameraRotation * Mathf.Deg2Rad;
-        var moveDirectionX = inputEvents.verticalInput * Mathf.Sin(rotationInRad) + inputEvents.horizontalInput * Mathf.Cos(rotationInRad);
-        var moveDirectionZ = inputEvents.verticalInput * Mathf.Cos(rotationInRad) - inputEvents.horizontalInput * Mathf.Sin(rotationInRad);
-        //direction is automatically normalized with math
-        var moveVelocity = new Vector3(moveDirectionX, 0, moveDirectionZ) * movementSpeed;
+        var moveDirection = moveVectorX * inputEvents.verticalInput + moveVectorZ * inputEvents.horizontalInput;
+        var moveVelocity = new Vector3(moveDirection.x, 0, moveDirection.y) * movementSpeed;
         
         rigidbodyComponent.velocity = new Vector3(moveVelocity.x, rigidbodyComponent.velocity.y, moveVelocity.z);
     }
@@ -48,5 +47,14 @@ public class PlayerMovement : MonoBehaviour
         var numberOfCollisions = Physics.OverlapBoxNonAlloc(groundHitbox.position, groundHitbox.localScale, results, Quaternion.identity, groundLayer.value);
 
         return numberOfCollisions > 0;
+    }
+
+    public void CalculateMoveVectors()
+    {
+        var rotationInRad = gameInfo.cameraRotation * Mathf.Deg2Rad;
+        moveVectorX = new Vector2(Mathf.Sin(rotationInRad), Mathf.Cos(rotationInRad));
+        moveVectorZ = new Vector2(Mathf.Cos(rotationInRad), -Mathf.Sin(rotationInRad));
+
+        Debug.Log(moveVectorX + ";" + moveVectorZ);
     }
 }
